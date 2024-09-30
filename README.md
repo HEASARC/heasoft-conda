@@ -18,7 +18,9 @@ mamba install rattler-build
  cd cfitsio
  ../scripts/run_build.sh
  ```
- This will create the conda package in a the `output` folder. To use it, you can install the package with:
+ This will write the conda package in a the `output` folder. To use it, you can install the package with:
  ```sh
  mamba install cfitsio -c ./output
  ```
+
+Note that the content of the `output` folder should not be kept under version control.

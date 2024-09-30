@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rattler-build build --no-include-recipe
+rattler-build build --no-include-recipe --output-dir ../output
