@@ -68,3 +68,5 @@ To use them after hosting on the website, install with the following command:
 ```
 conda install healib -k -c https://heasarcdev.gsfc.nasa.gov/klrutkow/pkg_mgrs/
 ```
+
+The `-k` option is required to allow insecure connections. (TODO: investigate and solve)
