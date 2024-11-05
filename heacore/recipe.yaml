@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=../../../schema.json
+
+context:
+  name: heacore
+  version: 6.34
+  sha256: 3659a7b0446cceb986e275cc6f379dd0c7cc4ad34922ed4d69d3e02ad9123e57
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  #url: https://heasarcdev.gsfc.nasa.gov/wsgi-scripts/azoghbi/tar/tarit/${{ version }}/${{ name }}.tar.gz
+  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software/${{ name }}-${{ version }}.tar
+  sha256: ${{ sha256 }}
+  #path: ./heacore-6.34.tar.gz
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - libtool
+    - autoconf
+    - ${{ compiler('fortran') }}
+    - ${{ compiler('c') }}
+    - make
+  host:
+    - python
+    - zlib
+    - libcurl
+
+tests:
+  - script:
+    - fitsverify -h
+
+about:
+  homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
+  #license_file: LICENSE
+  summary: the core library of heasoft
+  description: |
+    HEACORE.
+  documentation: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
