@@ -10,12 +10,12 @@ The following packages are currently included in this repository:
 # Required tools
 Conda/mamba may be installed via miniforge. If you don't have conda/mamba installed, it is recommended that you install them through [micromamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html): 
 
-```
+```sh
 "${SHELL}" <(curl -L micro.mamba.pm/install.sh)
 ```
 
 These builds use [rattler-build](https://github.com/prefix-dev/rattler-build/). If it's not alreaddy isntalled, it can be installed with:
-```
+```sh
 mamba install rattler-build
 ```
 
@@ -24,14 +24,14 @@ mamba install rattler-build
 # Building Packages
 
 To build a package, call the `run_build.sh` script from inside the relevant folder. For `cfitsio`, this will be:
-```
+```sh
 cd cfitsio
 ../scripts/run_build.sh
 ```
 
 This will write the conda package in a the `output` folder. For example, after creating the healib and cfitsio packages on a Mac, the `output` dir has the following contents:
 
-```
+```sh
 ls -l ./output
 bld:
 drwxr-xr-x 2 klrutkow staff 64 Oct 15 00:44 rattler-build_cfitsio_1728967256/
@@ -60,12 +60,12 @@ The packages can be copied to the heasarc webpages. For example, the `output/noa
 # Installing the Packages 
 
 To use the packages that were built in the output dir, you can install the package with:
-```
+```sh
 mamba install cfitsio -c ./output
 ```
 
 To use them after hosting on the website, install with the following command:
-```
+```sh
 conda install healib -k -c https://heasarcdev.gsfc.nasa.gov/klrutkow/pkg_mgrs/
 ```
 
