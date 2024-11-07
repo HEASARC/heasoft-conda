@@ -1,13 +1,21 @@
 #!/bin/bash
 
 set -ex
+configure_args=(
+    --prefix=$PREFIX
+    --enable-collapse=all
+    --x-includes=$PREFIX/include
+    --x-libraries=$PREFIX/lib
+)
 
-PYTHON=$PREFIX/bin/python
+
 cd BUILD_DIR
-./configure --prefix=$PREFIX --enable-collapse=all || { cat config.log ; exit 1 ; }
-
+./configure "${configure_args[@]}" 2>&1 | tee config.log.txt
 make
 make install
+# needed to install_name_tool on osx works
+rm $PREFIX/BUILD_DIR/hd_install.o > /dev/null 2>&1
+
 
 if [ ${CONDA_BUILD_CROSS_COMPILATION:-0} -eq 0 ] ; then
     # Test-ish programs; Need more comprehensive tests

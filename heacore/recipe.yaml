@@ -14,21 +14,23 @@ source:
   url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software/${{ name }}-${{ version }}.tar
   sha256: ${{ sha256 }}
   #path: ./heacore-6.34.tar.gz
+  patches:
+    - heainit.patch
 
 build:
   number: 0
 
 requirements:
   build:
-    - libtool
-    - autoconf
-    - ${{ compiler('fortran') }}
     - ${{ compiler('c') }}
-    - make
+    - ${{ compiler('fortran') }}
   host:
-    - python
+    - python >=3.9,<3.12
     - zlib
     - libcurl
+    - if: linux
+      then:
+        - xorg-libx11
 
 tests:
   - script:
