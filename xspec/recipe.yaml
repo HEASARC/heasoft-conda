@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=../../../schema.json
+
+context:
+  name: xspec
+  version: 12.14.1
+  sha256: 487728b8c1446539de04832090b5c8e46217feb38ab6f2310cf86df173155e0a
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/${{ name }}-${{ version }}.tar.gz
+  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
+  sha256: ${{ sha256 }}
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('fortran') }}
+  host:
+    - libcurl
+    - zlib
+    - libpng
+    - xorg-libx11
+    - xorg-libxt
+    - python=3.11
+  run:
+    - libcurl
+    - zlib
+    - libpng
+    - xorg-libx11
+    - xorg-libxt
+    - python=3.11
+
+
+tests:
+  - script:
+    - echo "No implemeted yet"
+
+about:
+  homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
+  #license_file: LICENSE
+  summary: the core library of heasoft
+  description: |
+    xspec.
+  documentation: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
