@@ -4,7 +4,6 @@ set -ex
 
 ostype=$(uname)
 if [ "$ostype" = "Darwin" ]; then
-    ../makemake .. darwin g77_gcc_X
     # use headers from libx11 not the ones shiped with tk
     # with this, xserver works on mac, but not tkpgplot
     # This can be done at the user end by: mamba install xorg-libx11 --clobber
