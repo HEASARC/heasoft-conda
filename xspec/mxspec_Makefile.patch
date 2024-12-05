@@ -1,0 +1,11 @@
+--- Xspec/src/XSUser/Python/mxspec/Makefile
++++ Xspec/src/XSUser/Python/mxspec/Makefile
+@@ -10,7 +10,7 @@
+ HD_LIBRARY_SRC_cxx	= PyCallXSTable.cxx PyCallXSMod.cxx pymXspecmodule.cxx
+ 
+ HD_SHLIB_LIBS		= ${HD_LFLAGS} -lXSFunctions -lXSUtil -lXS \
+-			  ${F77LIBS4C}
++			  ${F77LIBS4C} ${PYTHON_LIB}
+ 
+ HD_INSTALL_PYTHON_LIBS	= lib${HD_LIBRARY_ROOT}${SHLIB_SUFFIX} \
+ 			  mmodel.py __init__.py

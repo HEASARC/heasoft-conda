@@ -14,6 +14,14 @@ if [ "$ostype" = "Darwin" ]; then
     for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
         sed -i '' 's|-Wl,-rpath,\\$HD_TOP_EXEC_PFX/lib||g' $conf
     done
+
+    # fix python library in mac x86_64
+    hware=$(uname -m)
+    if [ "$hware" = "x86_64" ]; then
+        for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
+            sed -i '' 's|PYTHON_LIBRARY=`${PY_CONFIG} --ldflags|PYTHON_LIBRARY=`${PY_CONFIG} --libs --embed|g' $conf
+        done
+    fi
 fi
 
 

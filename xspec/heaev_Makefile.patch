@@ -1,0 +1,11 @@
+--- heacore/heaev/Makefile
++++ heacore/heaev/Makefile
+@@ -8,7 +8,7 @@
+ 
+ HD_CXXFLAGS		= ${HD_STD_CXXFLAGS}
+ 
+-HD_SHLIB_LIBS		= ${HD_LFLAGS} -l${HEASP} -l${CCFITS}
++HD_SHLIB_LIBS		= ${HD_LFLAGS} -l${HEASP} -l${CCFITS} -l${HEAIO}
+ 
+ HD_INSTALL_LIBRARIES	= ${HD_LIBRARY_ROOT}
+ 
