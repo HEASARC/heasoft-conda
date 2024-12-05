@@ -37,3 +37,4 @@ cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.log.txt
 make 2>&1 | tee build.log.txt
 make install 2>&1 | tee install.log.txt
+rm -rf $PREFIX/BUILD_DIR/hd_install.o
