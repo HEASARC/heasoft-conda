@@ -9,6 +9,11 @@ if [ "$ostype" = "Darwin" ]; then
     # This can be done at the user end by: mamba install xorg-libx11 --clobber
     find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-*" \
         -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-libx11}"' {} \;
+
+    # remove extra @rpath
+    for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
+        sed -i '' 's|-Wl,-rpath,\\$HD_TOP_EXEC_PFX/lib||g' $conf
+    done
 fi
 
 

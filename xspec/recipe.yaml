@@ -13,6 +13,10 @@ source:
   #url: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/${{ name }}-${{ version }}.tar.gz
   url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
   sha256: ${{ sha256 }}
+  patches:
+    - gsl_configure.patch
+    - pgplot_makemake.patch
+    - xspec_configure.patch
 
 build:
   number: 0
@@ -22,20 +26,32 @@ requirements:
     - ${{ compiler('cxx') }}
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
+    - pkg-config
+    - python
   host:
     - libcurl
     - zlib
+    - libbrotlidec
+    - libiconv
     - libpng
     - xorg-libx11
     - xorg-libxt
-    - python=3.11
+    - xorg-libxcursor
+    - fgsl
+    - perl
+    - numpy
   run:
     - libcurl
     - zlib
+    - libbrotlidec
+    - libiconv
     - libpng
     - xorg-libx11
     - xorg-libxt
-    - python=3.11
+    - xorg-libxcursor
+    - fgsl
+    - perl
+    - numpy
 
 
 tests:
