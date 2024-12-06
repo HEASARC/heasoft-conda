@@ -1,0 +1,29 @@
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+
+context:
+  name: xspec-data
+  version: 12.14.1
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+source:
+  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
+  sha256: 180cdca9f8ec2a54f960782f152ce03e394bf78be8a8d623df0e97d381025571
+build:
+  number: 0
+  noarch: generic
+  script:
+    content: |
+      mkdir -p $PREFIX/spectral/modelData
+      mv spectral/modelData/* $PREFIX/spectral/modelData/
+
+about:
+  homepage: http://heasarc.gsfc.nasa.gov/fitsio/fitsio.html
+  #license: LicenseRef-fitsio
+  #license_file: LICENSE
+  summary: Main xspec data
+  description: |
+    Main xspec data
+  documentation: https://heasarc.gsfc.nasa.gov/docs/software/fitsio/quick/quick.html

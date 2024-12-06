@@ -1,9 +1,8 @@
-# yaml-language-server: $schema=../../../schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
 
 context:
   name: xspec
   version: 12.14.1
-  sha256: 487728b8c1446539de04832090b5c8e46217feb38ab6f2310cf86df173155e0a
 
 package:
   name: ${{ name|lower }}
@@ -12,7 +11,7 @@ package:
 source:
   #url: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/${{ name }}-${{ version }}.tar.gz
   url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: ${{ sha256 }}
+  sha256: c2bd0610588ea1ca59739a05e87afac49758b5760a8b98dd4840edff9888fae5
   patches:
     - gsl_configure.patch
     - pgplot_makemake.patch
@@ -58,6 +57,7 @@ requirements:
     - fgsl
     - perl
     - numpy
+    - xspec-data = 12.14.1
 
 
 tests:
