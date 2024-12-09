@@ -38,3 +38,31 @@ cd BUILD_DIR
 make 2>&1 | tee build.log.txt
 make install 2>&1 | tee install.log.txt
 rm -rf $PREFIX/BUILD_DIR/hd_install.o
+
+# write initialization scripts
+# 1. write them to bin/heainit.[c]sh
+# 2. Write a script bin/.xspe-post-link.sh that copies bin/heainit.[c]sh
+#    to $PREFIX/etc/conda/activate.d so they are executed after installation
+#    and when the conda environment is activavted.
+cat <<EOF >$PREFIX/bin/heainit.sh
+#!/bin/bash
+export HEADAS=\$CONDA_PREFIX
+echo "activating heasoft in \$HEADAS"
+source \$HEADAS/BUILD_DIR/headas-init.sh
+EOF
+chmod +x $PREFIX/bin/heainit.sh
+cat <<EOF >$PREFIX/bin/heainit.csh
+#!/bin/bash
+setenv HEADAS \$CONDA_PREFIX
+echo "activating heasoft in \$HEADAS"
+source \$HEADAS/BUILD_DIR/headas-init.csh
+EOF
+chmod +x $PREFIX/bin/heainit.csh
+
+cat <<EOF >$PREFIX/bin/.xspec-post-link.sh
+mkdir -p \$PREFIX/etc/conda/activate.d
+cp \$PREFIX/bin/heainit.*sh \$PREFIX/etc/conda/activate.d/
+EOF
+cat <<EOF >$PREFIX/bin/.xspec-pre-unlink.sh
+rm \$PREFIX/etc/conda/activate.d/heainit.*sh > /dev/null 2>&1
+EOF
