@@ -1,0 +1,83 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+
+context:
+  name: heasoft
+  version: 6.34
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/${{ name }}-${{ version }}.tar.gz
+  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
+  sha256: afd54747e6780489eb620eeb31c15fb0a9245a8271c2d44969c207053a65b2ed
+  patches:
+    - gsl_configure.patch
+    - pgplot_makemake.patch
+    - xspec_configure.patch
+    - heainit.patch
+    - heaev_Makefile.patch
+    - xsmix_Makefile.patch
+    - heasp_python_Makefile.patch
+    - pyxspec_Makefile.patch
+    - mxspec_Makefile.patch
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('fortran') }}
+    - pkg-config
+    - python
+    - pip
+    - if: linux
+      then:
+        - patchelf
+  host:
+    - libcurl
+    - zlib
+    - libbrotlidec
+    - libiconv
+    - libpng
+    - xorg-libx11
+    - xorg-libxt
+    - xorg-xorgproto
+    - xorg-libxcursor
+    - fgsl
+    - perl
+    - numpy
+    - astropy
+    - matplotlib
+  run:
+    - libcurl
+    - zlib
+    - libbrotlidec
+    - libiconv
+    - libpng
+    - xorg-libx11
+    - xorg-libxt
+    - xorg-libxcursor
+    - xorg-xorgproto
+    - fgsl
+    - perl
+    - numpy
+    - astropy
+    - matplotlib
+    - xspec-data = 12.14.1
+
+
+tests:
+  - script:
+    - echo "No implemeted yet"
+
+about:
+  homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
+  #license_file: LICENSE
+  summary: the core library of heasoft
+  description: |
+    xspec.
+  documentation: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
