@@ -1,0 +1,29 @@
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+
+context:
+  name: xstar-data
+  version: 6.34
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+source:
+  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
+  sha256: 3d096b16a509cbd1e1f5d65125c938a7d3dc0763b5128551abcd051b4af2e678
+build:
+  number: 0
+  noarch: generic
+  script:
+    content: |
+      mkdir -p $PREFIX/refdata/
+      mv data/* $PREFIX/refdata/
+
+about:
+  homepage: http://heasarc.gsfc.nasa.gov/fitsio/fitsio.html
+  #license: LicenseRef-fitsio
+  #license_file: LICENSE
+  summary: Main xstar data
+  description: |
+    Main xstar data
+  documentation: https://heasarc.gsfc.nasa.gov/docs/software/fitsio/quick/quick.html
