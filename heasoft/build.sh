@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -ex
 
 ostype=$(uname)
 if [ "$ostype" = "Darwin" ]; then
@@ -72,10 +71,10 @@ source \$HEADAS/BUILD_DIR/headas-init.csh
 EOF
 chmod +x $PREFIX/bin/heainit.csh
 
-cat <<EOF >$PREFIX/bin/.xspec-post-link.sh
+cat <<EOF >$PREFIX/bin/.heasoft-post-link.sh
 mkdir -p \$PREFIX/etc/conda/activate.d
 cp \$PREFIX/bin/heainit.*sh \$PREFIX/etc/conda/activate.d/
 EOF
-cat <<EOF >$PREFIX/bin/.xspec-pre-unlink.sh
+cat <<EOF >$PREFIX/bin/.heasoft-pre-unlink.sh
 rm \$PREFIX/etc/conda/activate.d/heainit.*sh > /dev/null 2>&1
 EOF

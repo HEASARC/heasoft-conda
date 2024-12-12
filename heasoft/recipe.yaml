@@ -19,6 +19,8 @@ source:
     - heainit.patch
     - heaev_Makefile.patch
     - xsmix_Makefile.patch
+    - tcltk_Makefile.patch
+    - pgplot_makefile_pl.patch
     - heasp_python_Makefile.patch
     - pyxspec_Makefile.patch
     - mxspec_Makefile.patch
