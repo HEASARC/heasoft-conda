@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+set -o pipefail
 
 ostype=$(uname)
 if [ "$ostype" = "Darwin" ]; then
@@ -41,9 +43,9 @@ configure_args=(
 
 
 cd BUILD_DIR
-./configure "${configure_args[@]}" 2>&1 | tee config.log.txt
-make 2>&1 | tee build.log.txt
-make install 2>&1 | tee install.log.txt
+./configure "${configure_args[@]}" 2>&1 | tee config.log.txt || false
+make 2>&1 | tee build.log.txt || false
+make install 2>&1 | tee install.log.txt || false
 rm -rf $PREFIX/BUILD_DIR/hd_install.o
 
 # we need all libraries to be writable so conda-build can
