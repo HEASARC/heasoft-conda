@@ -45,8 +45,6 @@ requirements:
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
     - pkg-config
-    - python
-    - pip
     - if: linux
       then:
         - patchelf
@@ -62,6 +60,7 @@ requirements:
     - xorg-libxcursor
     - fgsl
     - perl
+    - pip
     - numpy
     - astropy
     - matplotlib
