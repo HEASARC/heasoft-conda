@@ -1,0 +1,20 @@
+--- heacore/heasoftpy/install.py
++++ heacore/heasoftpy/install.py
+@@ -76,8 +76,6 @@
+         list_of_files = generate_py_code()
+         # add the generated files to heasoftpy.egg-info so they are 
+         # installed correctly
+-        with open(f'heasoftpy.egg-info/SOURCES.txt', 'a') as fp:
+-            fp.write('\n' + ('\n'.join(list_of_files)))
+     except:
+         logger.error('Failed in generating python wrappers')
+         raise
+@@ -126,8 +124,6 @@
+             logger.info(f'No {subpackage} subpackage, skipping ...')
+         # add the generated files to heasoftpy.egg-info so they are
+         # installed correctly
+-        with open(f'heasoftpy.egg-info/SOURCES.txt', 'a') as fp:
+-            fp.write('\n' + ('\n'.join(list_of_files)))
+ 
+ 
+     

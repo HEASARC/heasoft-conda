@@ -32,6 +32,7 @@ source:
     - hitomi_calanticopi_makefile.patch
     - hitomi_calbranch_makefile.patch
     - hitomi_ccdphas_makefile.patch
+    - heasoftpy_install.patch
     - heasp_python_Makefile.patch
     - pyxspec_Makefile.patch
     - mxspec_Makefile.patch
