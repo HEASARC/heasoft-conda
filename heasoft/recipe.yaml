@@ -62,6 +62,7 @@ requirements:
     - fgsl
     - perl
     - pip
+    - setuptools
     - numpy
     - astropy
     - matplotlib
