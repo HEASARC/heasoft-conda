@@ -38,9 +38,9 @@ cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.log.txt || false
 make 2>&1 | tee build.log.txt || false
 make install 2>&1 | tee install.log.txt || false
-rm -rf $PREFIX/BUILD_DIR/hd_install.o
 mkdir -p $PREFIX/Xspec
 cp -r ../Xspec/BUILD_DIR $PREFIX/Xspec
+find $PREFIX -type f -name 'hd_install.o' -exec rm -f {} \;
 
 # write initialization scripts
 # 1. write them to bin/heainit.[c]sh
