@@ -1,0 +1,23 @@
+--- tcltk/BUILD_DIR/Makefile.in
++++ tcltk/BUILD_DIR/Makefile.in
+@@ -66,9 +66,6 @@
+ 		rm -f ${TCL_DIR}/tclsh${BSUF}; \
+ 	fi
+ 	${MAKE} subdir-tcl
+-	@if [ "x${EXT}" = xdarwin -a -f ${TCL_DIR}/tclsh${BSUF} ]; then \
+-		/usr/bin/install_name_tool -add_rpath ${HD_BLD_LIB} ${TCL_DIR}/tclsh${BSUF}; \
+-	fi
+ 	@if [ "x${SYMBOLS}" = xyes ]; then \
+ 		${HD_INSTALL} ${TCL_DIR}/lib${TCL}g${SHLIB_SUFFIX} \
+ 			${TCL_DIR}/lib${TCL}${SHLIB_SUFFIX} ${HD_LN_S}; \
+@@ -115,10 +112,6 @@
+ build-tk:
+ 	@rm -f ${TK_DIR}/wish${BSUF}
+ 	${MAKE} subdir-tk
+-	@if [ "x${EXT}" = xdarwin -a -f ${TK_DIR}/wish${BSUF} ]; then \
+-		echo "/usr/bin/install_name_tool -add_rpath ${HD_TOP_LIB} ${TK_DIR}/wish${BSUF}"; \
+-		/usr/bin/install_name_tool -add_rpath ${HD_TOP_LIB} ${TK_DIR}/wish${BSUF}; \
+-	fi
+ 
+ publish-tk:
+ 	${MAKE} install-tk HD_TOP_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_CP_P="${HD_LN_S}"

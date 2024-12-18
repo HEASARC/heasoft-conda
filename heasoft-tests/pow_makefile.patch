@@ -1,0 +1,11 @@
+--- tcltk/pow/Makefile
++++ tcltk/pow/Makefile
+@@ -18,7 +18,7 @@
+ 
+ HD_INSTALL_LIBRARIES	= ${HD_LIBRARY_ROOT}
+ 
+-HD_SHLIB_LIBS		= ${HD_LFLAGS} -l${CFITSIO} -l${TCL} -l${TK} ${XLIBS} ${CURL_LIB} ${SYSLIBS}
++HD_SHLIB_LIBS		= ${HD_LFLAGS} -l${CFITSIO} -l${TCL} -l${TK} -lz ${XLIBS} ${CURL_LIB} ${SYSLIBS}
+ 
+ HD_INSTALL_SHELL_SCRIPTS	= POWplot
+ 

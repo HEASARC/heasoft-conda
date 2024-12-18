@@ -1,0 +1,69 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+
+context:
+  name: heasoft-tests
+  version: 6.34
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  #url: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/${{ name }}-${{ version }}.tar.gz
+  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
+  sha256: afd54747e6780489eb620eeb31c15fb0a9245a8271c2d44969c207053a65b2ed
+  patches:
+    - gsl_configure.patch
+    - pgplot_makemake.patch
+    - xspec_configure.patch
+    - heainit.patch
+    - heaev_Makefile.patch
+    - xsmix_Makefile.patch
+    - tcltk_Makefile.patch
+    - pgplot_makefile_pl.patch
+    - pow_makefile.patch
+    - xdf_makefile.patch
+    - fitstcl_makefile.patch
+    - hitomi_expmap_makefile.patch
+    - hitomi_mktim_makefile.patch
+    - hitomi_timeassign_makefile.patch
+    - hitomi_trendtemp_makefile.patch
+    - hitomi_sxsrsl_makefile.patch
+    - hitomi_calanticopi_makefile.patch
+    - hitomi_calbranch_makefile.patch
+    - hitomi_ccdphas_makefile.patch
+    - heasoftpy_install.patch
+    - heasp_python_Makefile.patch
+    - pyxspec_Makefile.patch
+    - mxspec_Makefile.patch
+    - maxi_mxgrmfgen_test.patch
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('fortran') }}
+    - pkg-config
+    - if: linux
+      then:
+        - patchelf
+  host:
+    - heasoft = 6.34
+  run:
+    - heasoft = 6.34
+
+
+tests:
+  - script:
+    - echo "No implemeted yet"
+
+about:
+  homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
+  #license_file: LICENSE
+  summary: the core library of heasoft
+  description: |
+    xspec.
+  documentation: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
