@@ -5,7 +5,7 @@ set -o pipefail
 
 ostype=$(uname)
 if [ "$ostype" = "Darwin" ]; then
-    # use headers from libx11 not the ones shiped with tk
+    # use headers from libx11 not the ones shipped with tk
     # with this, xserver works on mac, but not tkpgplot
     # This can be done at the user end by: mamba install xorg-libx11 --clobber
     find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-*" \

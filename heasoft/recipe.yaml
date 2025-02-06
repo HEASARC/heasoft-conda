@@ -73,7 +73,7 @@ requirements:
 
 tests:
   - script:
-    - echo "No implemeted yet"
+    - echo "No implemented yet"
 
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
