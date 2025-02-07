@@ -3,13 +3,17 @@
 set -e
 set -o pipefail
 
+HEA_SUBDIR=heasoft
+
 ostype=$(uname)
 if [ "$ostype" = "Darwin" ]; then
     # use headers from libx11 not the ones shipped with tk
     # with this, xserver works on mac, but not tkpgplot
     # This can be done at the user end by: mamba install xorg-libx11 --clobber
-    find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-*" \
+    find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-libx11*" \
         -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-libx11}"' {} \;
+    find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-xorgproto*" \
+        -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-xorgproto}"' {} \;
 
     # remove extra @rpath
     for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
@@ -35,7 +39,7 @@ done
 
 
 configure_args=(
-    --prefix=$PREFIX
+    --prefix=$PREFIX/$HEA_SUBDIR
     --enable-collapse=all
     --x-includes=$PREFIX/include
     --x-libraries=$PREFIX/lib
@@ -46,11 +50,11 @@ cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.log.txt || false
 make 2>&1 | tee build.log.txt || false
 make install 2>&1 | tee install.log.txt || false
-rm -rf $PREFIX/BUILD_DIR/hd_install.o
+rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
 
 # we need all libraries to be writable so conda-build can
 # modify the rpath, etc. (e.g. libxpa.so.1.0)
-find $PREFIX/lib -type f ! -type l -name "*$SHLIB_EXT*" -exec chmod 755 {} \;
+find $PREFIX/$HEA_SUBDIR/lib -type f ! -type l -name "*$SHLIB_EXT*" -exec chmod 755 {} \;
 
 
 # write initialization scripts
@@ -60,14 +64,14 @@ find $PREFIX/lib -type f ! -type l -name "*$SHLIB_EXT*" -exec chmod 755 {} \;
 #    and when the conda environment is activavted.
 cat <<EOF >$PREFIX/bin/heainit.sh
 #!/bin/bash
-export HEADAS=\$CONDA_PREFIX
+export HEADAS=\$CONDA_PREFIX/$HEA_SUBDIR
 echo "activating heasoft in \$HEADAS"
 source \$HEADAS/BUILD_DIR/headas-init.sh
 EOF
 chmod +x $PREFIX/bin/heainit.sh
 cat <<EOF >$PREFIX/bin/heainit.csh
 #!/bin/bash
-setenv HEADAS \$CONDA_PREFIX
+setenv HEADAS \$CONDA_PREFIX/$HEA_SUBDIR
 echo "activating heasoft in \$HEADAS"
 source \$HEADAS/BUILD_DIR/headas-init.csh
 EOF

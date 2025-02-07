@@ -16,8 +16,9 @@ build:
   noarch: generic
   script:
     content: |
-      mkdir -p $PREFIX/spectral/modelData
-      mv spectral/modelData/* $PREFIX/spectral/modelData/
+      HEA_SUBDIR=heasoft
+      mkdir -p $PREFIX/$HEA_SUBDIR/spectral/modelData
+      mv spectral/modelData/* $PREFIX/$HEA_SUBDIR/spectral/modelData/
 
 about:
   homepage: http://heasarc.gsfc.nasa.gov/fitsio/fitsio.html
