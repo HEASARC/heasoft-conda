@@ -16,8 +16,9 @@ build:
   noarch: generic
   script:
     content: |
-      mkdir -p $PREFIX/refdata/
-      mv data/* $PREFIX/refdata/
+      HEA_SUBDIR=heasoft
+      mkdir -p $PREFIX/$HEA_SUBDIR/refdata
+      mv data/* $PREFIX/$HEA_SUBDIR/refdata/
 
 about:
   homepage: http://heasarc.gsfc.nasa.gov/fitsio/fitsio.html

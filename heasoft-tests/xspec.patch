@@ -1,0 +1,23 @@
+--- Xspec/src/XSModel/Model/MixFunction/Makefile
++++ Xspec/src/XSModel/Model/MixFunction/Makefile
+@@ -39,7 +39,7 @@
+ HD_CXXFLAGS		= ${HD_STD_CXXFLAGS} -DINITPACKAGE
+ 
+ HD_SHLIB_LIBS		= ${HD_LFLAGS}  \
+-			  -lXSFunctions -lXSModel -lXSUtil -lXS \
++			  -lXSFunctions -lXSModel -lXSUtil -lXS -l${HEASP} \
+ 			  ${GUI_LIBS} -l${TCLREADLINE} -l${TCL} ${GSL_LIBS} \
+ 			  ${HD_STD_LIBS} ${XLIBS} ${SYSLIBS} ${F77LIBS4C}
+ 
+--- Xspec/BUILD_DIR/configure
++++ Xspec/BUILD_DIR/configure
+@@ -5760,7 +5760,8 @@
+ printf "%s\n" "$ac_cv_cxx_std_count_defect" >&6; }
+   if test "$ac_cv_cxx_std_count_defect" = yes; then
+ 
+-printf "%s\n" "#define STD_COUNT_DEFECT 1" >>confdefs.h
++#printf "%s\n" "#define STD_COUNT_DEFECT 1" >>confdefs.h
++echo "NA"
+ 
+   fi
+ 
