@@ -3,13 +3,17 @@
 set -e
 set -o pipefail
 
+HEA_SUBDIR=heasoft
+
 ostype=$(uname)
 if [ "$ostype" = "Darwin" ]; then
-    # use headers from libx11 not the ones shiped with tk
+    # use headers from libx11 not the ones shipped with tk
     # with this, xserver works on mac, but not tkpgplot
     # This can be done at the user end by: mamba install xorg-libx11 --clobber
-    find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-*" \
+    find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-libx11*" \
         -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-libx11}"' {} \;
+    find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-xorgproto*" \
+        -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-xorgproto}"' {} \;
 
     # remove extra @rpath
     for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
@@ -35,7 +39,7 @@ done
 
 
 configure_args=(
-    --prefix=$PREFIX
+    --prefix=$PREFIX/$HEA_SUBDIR
     --enable-collapse=all
     --x-includes=$PREFIX/include
     --x-libraries=$PREFIX/lib
@@ -48,4 +52,4 @@ cd BUILD_DIR
 #make install 2>&1 | tee install.log.txt || false
 make test || false 
 make install-test || false
-rm -rf $PREFIX/BUILD_DIR/hd_install.o
+rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
