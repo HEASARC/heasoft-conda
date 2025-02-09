@@ -50,6 +50,7 @@ cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.log.txt || false
 #make 2>&1 | tee build.log.txt || false
 #make install 2>&1 | tee install.log.txt || false
+make hd_install && cp hd_install $PREFIX/bin/
 make test || false 
 make install-test || false
 rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
