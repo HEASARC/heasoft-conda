@@ -45,12 +45,19 @@ configure_args=(
     --x-libraries=$PREFIX/lib
 )
 
+if [ "$ostype" = "Darwin" ]; then
+    mv $PREFIX/lib/libtk8.6.dylib $PREFIX/lib/libtk8.6.dylib.off
+fi
 
 cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.log.txt || false
 make 2>&1 | tee build.log.txt || false
 make install 2>&1 | tee install.log.txt || false
 rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
+
+if [ "$ostype" = "Darwin" ]; then
+    mv $PREFIX/lib/libtk8.6.dylib.off $PREFIX/lib/libtk8.6.dylib
+fi
 
 # we need all libraries to be writable so conda-build can
 # modify the rpath, etc. (e.g. libxpa.so.1.0)
@@ -78,9 +85,9 @@ EOF
 chmod +x $PREFIX/bin/heainit.csh
 
 cat <<EOF >$PREFIX/bin/.heasoft-post-link.sh
-mkdir -p \$PREFIX/etc/conda/activate.d
-cp \$PREFIX/bin/heainit.*sh \$PREFIX/etc/conda/activate.d/
+mkdir -p \$CONDA_PREFIX/etc/conda/activate.d
+cp \$CONDA_PREFIX/bin/heainit.*sh \$CONDA_PREFIX/etc/conda/activate.d/
 EOF
 cat <<EOF >$PREFIX/bin/.heasoft-pre-unlink.sh
-rm \$PREFIX/etc/conda/activate.d/heainit.*sh > /dev/null 2>&1
+rm \$CONDA_PREFIX/etc/conda/activate.d/heainit.*sh > /dev/null 2>&1
 EOF
