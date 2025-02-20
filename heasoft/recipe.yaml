@@ -26,6 +26,7 @@ source:
 
 build:
   number: 0
+  always_include_files: "*"
 
 requirements:
   build:
