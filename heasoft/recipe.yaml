@@ -70,11 +70,6 @@ requirements:
     - matplotlib
     - xspec-data = 12.14.1
 
-
-tests:
-  - script:
-    - echo "No implemented yet"
-
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
   #license_file: LICENSE
