@@ -1,0 +1,140 @@
+#!/usr/bin/env python
+
+import os
+import argparse
+import json
+import subprocess
+
+
+sep_line = '-'*30
+
+
+def get_config(config_file='config.json'):
+    """Read the config file that has the package information
+
+    Parameters
+    config: str
+        file name of the config file.
+        It should in the same location as this script.
+
+    """
+
+    script_dir = os.path.abspath(os.path.dirname(__file__))
+
+    if not os.path.exists(f'{script_dir}/{config_file}'):
+        raise FileExistsError(
+            f'No config file {config_file} found in {script_dir}')
+    with open(f'{script_dir}/{config_file}') as fp:
+        config = json.load(fp)
+    return config
+
+
+def _run_cmd(cmd, dryrun=False):
+
+    print('\n' + sep_line)
+    print(cmd)
+    print(sep_line + '\n')
+    if not dryrun:
+        subprocess.call(cmd, shell=True)
+
+
+def pack_files(package, version, config, dryrun):
+    """Pack the requested package files to a tar file
+
+    Parameters:
+    -----------
+    package: str
+        package name from the config file
+    version: str
+        package version
+    config: dict
+        dict of the config information
+    dryrun: bool
+        If True, print messages without doing the run
+
+    """
+    if package is None:
+        raise ValueError(f'No package given: package = {package}')
+    if version is None:
+        raise ValueError(f'No version given: version = {version}')
+
+    if package not in config['packages']:
+        raise KeyError(f'No entry for {package} in the config file')
+
+    pconfig = config['packages'][package]
+
+    # handle the case of a link to another package
+    if 'link' in pconfig:
+        linked_packaged = pconfig['link'].format(version=version)
+        if not dryrun and not os.path.exists(f'{linked_packaged}.tar'):
+            raise ValueError(
+                f'Package {package} is linked to {linked_packaged}, but '
+                f'no {linked_packaged}.tar file found!'
+            )
+        else:
+            cmd = f'ln -s {linked_packaged}.tar {package}-{version}.tar'
+            _run_cmd(cmd, dryrun)
+    else:
+
+        rootdir = pconfig.get(
+            'root',
+            '/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}"'
+        )
+        rootdir = rootdir.format(package=package, version=version)
+        if not os.path.exists(rootdir) and not dryrun:
+            raise ValueError(
+                (f'ERROR: The given or default root dir for {package}: '
+                 f'{rootdir} does not exist')
+            )
+        include = pconfig.get('include', ['*'])
+        if isinstance(include, str):
+            include = [include]
+
+        exclude = pconfig.get('exclude', [])
+        if isinstance(exclude, str):
+            exclude = [exclude]
+
+        print('\n' + sep_line)
+        print('rootdir: ', rootdir)
+        print('include: ', include)
+        print('exclude: ', exclude)
+        print(sep_line + '\n')
+        tarfile = f'{package}-{version}.tar'
+        cmd = (
+            f'tar -cvf {tarfile} ' +
+            (' '.join([f'--exclude="{rootdir}/{ex}"' for ex in exclude])) +
+            ' ' +
+            (' '.join([f'{rootdir}/{inc}' for inc in include]))
+        )
+        _run_cmd(cmd, dryrun)
+
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(
+        description='generate conda source tar files')
+
+    parser.add_argument(
+        '-p', '--package', help='Package name. e.g. heasoft'
+    )
+
+    parser.add_argument(
+        '-v', '--version', help='Package version. e.g. 6.34'
+    )
+
+    parser.add_argument(
+        '--config', help='Config file', default='package_config.json'
+    )
+
+    parser.add_argument(
+        '--dryrun', help='Dry run', action='store_true', default=False,
+    )
+
+    # parse arguments
+    args = parser.parse_args()
+
+    # read the config file
+    config = get_config(args.config)
+
+    # Pack the files
+    pack_files(args.package, args.version, config, args.dryrun)
