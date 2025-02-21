@@ -99,14 +99,17 @@ def pack_files(package, version, config, dryrun):
         print('include: ', include)
         print('exclude: ', exclude)
         print(sep_line + '\n')
-        tarfile = f'{package}-{version}.tar'
+
+        cwd = os.getcwd()
+        tarfile = f'{cwd}/{package}-{version}.tar'
         cmd = (
             f'tar -cvf {tarfile} ' +
-            (' '.join([f'--exclude="{rootdir}/{ex}"' for ex in exclude])) +
-            ' ' +
-            (' '.join([f'{rootdir}/{inc}' for inc in include]))
+            (' '.join([f'--exclude="{ex}"' for ex in exclude])) + ' ' +
+            (' '.join(include))
         )
+        os.chdir(rootdir)
         _run_cmd(cmd, dryrun)
+        os.chdir(cwd)
 
 
 if __name__ == '__main__':
