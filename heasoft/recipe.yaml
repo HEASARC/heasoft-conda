@@ -9,9 +9,8 @@ package:
   version: ${{ version }}
 
 source:
-  #url: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/${{ name }}-${{ version }}.tar.gz
   url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: afd54747e6780489eb620eeb31c15fb0a9245a8271c2d44969c207053a65b2ed
+  sha256: 7929691a627e6ba74c2b9e797f248105e45a1b356a7910219e329bebaffe731d
   patches:
     - gsl_configure.patch
     - heainit.patch
