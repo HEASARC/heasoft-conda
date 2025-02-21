@@ -68,7 +68,7 @@ requirements:
     - numpy
     - astropy
     - matplotlib
-    - xspec-data = 12.14.1
+    - xspec-data = ${{ version }}
 
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
