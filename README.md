@@ -112,7 +112,7 @@ At this point, you see you prompt change to something like: `(base)[...]`
 
 2. Install heasoft intro a new conda environment (called hea),
 using this channel: `https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/`
-    - `mamba create -n hea python=3.12 heasoft -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/ -c conda-forge -y`
+    - `mamba create -n hea python=3.12 heasoft -k -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/ -c conda-forge -y`
 and wait for the install to finish.
 
 3. Activate the newly create conda environment (that has heasoft):
@@ -125,10 +125,10 @@ If it is not done automatically, please open and issue so it is fixed.
 4. Start testing `heasoft`.
 
 5. If you want the heasoft unit tests, install `heasoft-tests` in the same way:
-    - `mamba install heasoft-tests -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/`
+    - `mamba install heasoft-tests -k -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/`
 
 6. If you are testing `xspec`, not that the xspec data files distributed in two separate packages:
 `xspec-data` (~400 MB) and `xspec-data-extra` (~2BG). The first one (`xspec-data`) is installed automatically when
 `heasoft` is installed, and contain all model data expect to file that are >~200MB. The large files
 can be installed the same way by:
-    - `mamba install xspec-data-extra -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/`
+    - `mamba install xspec-data-extra -k -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/`
