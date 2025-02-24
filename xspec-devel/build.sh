@@ -20,7 +20,7 @@ if [ "$ostype" = "Darwin" ]; then
     hware=$(uname -m)
     if [ "$hware" = "x86_64" ]; then
         for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
-            sed -i '' 's|PYTHON_LIBRARY=`${PY_CONFIG} --ldflags|PYTHON_LIBRARY=`${PY_CONFIG} --libs --embed|g' $conf
+            sed -i '' 's/^.*PYTHON_LIBRARY=.*$/PYTHON_LIBRARY=-Wl,-undefined,dynamic_lookup/' $conf
         done
     fi
 fi
