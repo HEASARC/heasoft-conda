@@ -13,6 +13,16 @@
                 "ftools/xstar/data/atdb.fits"
             ]
         },
+        "heasoft-dev": {
+            "root": "/software/lheasoft/irby/release/heasoft",
+            "include": ["*"],
+            "exclude": [
+                "spectral/help",
+                "spectral/modelData",
+                "Xspec/src/spectral/modelData",
+                "ftools/xstar/data/atdb.fits"
+            ]
+        },
         "heasoft-tests": {
             "link": "heasoft-{version}"
         },
