@@ -1,11 +1,29 @@
+# Content
+This repo contains the code to generate conda packages for heasoft and related
+packages.
+
+It also contains code that create source tar files for the different packages.
+
 # Current Recipes
 
-This repository contains the recipes for building conda packages.
 
 The following packages are currently included in this repository:
+
+The trivial packages that are basic or already included in conda-forge:
 - `healib` is a basic hello world example of creating a conda package.
 - `cfitsio`, linking to a test tarball of the CFITSIO package
 - `ccfits`, linking to a test tarball of the CCfits package
+- `heacore`, peant to package heacore as one package (NOT TESTED YET).
+
+The main packages are:
+- `heasoft` the full heasoft distribution without data files (for xspec and xstar)
+- `heasoft-tests`: Build the test files only (`make test`). It has `heasoft` as a dependency
+and that is where it gets the binaries and libraries from. This package is for internal
+use only and is not meant to be distributed to users.
+- `xspec-data`: Data files for xspec (`spectral/modelData/*`). It includes all files except
+the very large ones (see `scripts/pacakge_config.json`). This is a dependency of `heasoft`
+- `xspec-data-extra`: Large data files for xspec (`spectral/modelData/*`). It the large files
+that are not included in `xspec-data` (see `scripts/pacakge_config.json`).
 
 # Required tools
 Conda/mamba may be installed via miniforge. If you don't have conda/mamba installed, it is recommended that you install them through [micromamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html): 
@@ -14,7 +32,7 @@ Conda/mamba may be installed via miniforge. If you don't have conda/mamba instal
 "${SHELL}" <(curl -L micro.mamba.pm/install.sh)
 ```
 
-These builds use [rattler-build](https://github.com/prefix-dev/rattler-build/). If it's not alreaddy isntalled, it can be installed with:
+These builds use [rattler-build](https://github.com/prefix-dev/rattler-build/). If it's not alreaddy installed, it can be installed with:
 ```sh
 mamba install rattler-build
 ```
@@ -54,7 +72,8 @@ Note that the contents of the `output` folder should not be kept under version c
 
 # Hosting Packages
 
-The packages can be copied to the heasarc webpages. For example, the `output/noarch` and `output/osx-64` directories can be copied to: https://heasarcdev.gsfc.nasa.gov/klrutkow/pkg_mgrs/.
+The package folders of `noarch` (contains os-independent packages e.g. `xspec-data`), `linux64`,
+`osx-arm` and `osx-64` should be put in the webserver. The latest are in `https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/`.
 
 
 # Installing the Packages 

@@ -4,7 +4,7 @@
 
 context:
   name: xspec-data-extra
-  version: 12.14.1
+  version: 6.34
   hea_subdir: heasoft
 
 package:
@@ -13,7 +13,7 @@ package:
 
 source:
   url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: 4ea153bdf3c5ff91c7ab3510c581f948058da22fe43bc1bb226bd53a2c258890
+  sha256: d366e893cb24a92bb602c9eb99d1492ae39737b94d33683c2b6ab9a208c75948
 
 build:
   noarch: generic
