@@ -103,32 +103,44 @@ If you don't have conda setup, these are the steps:
 1. Install miniforge (a the free version of conda). See 
 [the website for instructions](https://github.com/conda-forge/miniforge).
 This involves downloading the install script, running it to install it in some dir `CONDA_DIR`, then initializing it:
-    - `curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"`
-    - `bash Miniforge3-$(uname)-$(uname -m).sh -b -p "${CONDA_DIR}"`
-    - `source "${CONDA_DIR}/etc/profile.d/conda.sh"`
-    - `source "${CONDA_DIR}/etc/profile.d/mamba.sh"` # for mamba support
-    - `conda activate`
+```sh
+curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+bash Miniforge3-$(uname)-$(uname -m).sh -b -p "${CONDA_DIR}"
+source "${CONDA_DIR}/etc/profile.d/conda.sh"
+source "${CONDA_DIR}/etc/profile.d/mamba.sh" # for mamba support
+conda activate
+```
 At this point, you see you prompt change to something like: `(base)[...]`
 
 2. Install heasoft intro a new conda environment (called hea),
 using this channel: `https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/`
-    - `mamba create -n hea python=3.12 heasoft -k -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/ -c conda-forge -y`
+```sh
+mamba create -n hea python=3.12 heasoft -k -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/ -c conda-forge -y
+```
 and wait for the install to finish.
 
 3. Activate the newly create conda environment (that has heasoft):
-    - `conda activate hea`
+```sh
+conda activate hea
+```
 The prompt should change to something like `(hea)[...]`.
 Heasoft should be initialized and you should see a message like:
-`activating heasoft in $CONDA_DIR/envs/py312/heasoft`.
+```sh
+activating heasoft in $CONDA_DIR/envs/py312/heasoft
+```
 If it is not done automatically, please open and issue so it is fixed.
 
 4. Start testing `heasoft`.
 
 5. If you want the heasoft unit tests, install `heasoft-tests` in the same way:
-    - `mamba install heasoft-tests -k -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/`
+```sh
+mamba install heasoft-tests -k -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/
+```
 
 6. If you are testing `xspec`, not that the xspec data files distributed in two separate packages:
 `xspec-data` (~400 MB) and `xspec-data-extra` (~2BG). The first one (`xspec-data`) is installed automatically when
 `heasoft` is installed, and contain all model data expect to file that are >~200MB. The large files
 can be installed the same way by:
-    - `mamba install xspec-data-extra -k -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/`
+```sh
+mamba install xspec-data-extra -k -c https://heasarcdev.gsfc.nasa.gov/azoghbi/conda-full/
+```
