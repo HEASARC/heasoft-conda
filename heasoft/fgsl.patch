@@ -1,0 +1,44 @@
+--- ftools/asca/tasks/cleansis/Makefile
++++ ftools/asca/tasks/cleansis/Makefile
+@@ -10,7 +10,7 @@
+ 
+ HD_CFLAGS		= ${HD_STD_CFLAGS}
+ 
+-HD_FFLAGS		= ${HD_STD_FFLAGS} -I${HD_PREFIX}/include/fgsl
++HD_FFLAGS		= ${HD_STD_FFLAGS} -I${HD_PREFIX}/include/fgsl -I${PREFIX}/include/fgsl
+ 
+ HD_CLIBS		= ${HD_LFLAGS} \
+ 			  -lasca${FT_VERS} -l${ATFUNCTIONS} -l${FGSL} ${GSL_LIBS} \
+--- ftools/ftoolslib/Makefile
++++ ftools/ftoolslib/Makefile
+@@ -60,7 +60,7 @@
+ 
+ # Expand HD_STD_FFLAGS so we can use FOPT_SYS (lower optimization to prevent
+ # runtime errors):
+-HD_FFLAGS		= ${FOPT_SYS} ${FFLAGS} ${HD_IFLAGS} -I${HD_PREFIX}/include/fgsl
++HD_FFLAGS		= ${FOPT_SYS} ${FFLAGS} ${HD_IFLAGS} -I${HD_PREFIX}/include/fgsl -I${PREFIX}/include/fgsl
+ 
+ HD_CFLAGS		= ${HD_STD_CFLAGS}
+ 
+--- ftools/rosat/tasks/detect/Makefile
++++ ftools/rosat/tasks/detect/Makefile
+@@ -10,7 +10,7 @@
+ 
+ HD_CFLAGS		= ${HD_STD_CFLAGS}
+ 
+-HD_FFLAGS		= ${HD_STD_FFLAGS} -I${HD_PREFIX}/include/fgsl
++HD_FFLAGS		= ${HD_STD_FFLAGS} -I${HD_PREFIX}/include/fgsl -I${PREFIX}/include/fgsl
+ 
+ #HD_CLIBS		= ${HD_LFLAGS} -lros${FT_VERS} \
+ 
+--- Xspec/src/XSFunctions/Makefile
++++ Xspec/src/XSFunctions/Makefile
+@@ -112,7 +112,7 @@
+ 
+ HD_CFLAGS               = ${HD_STD_CFLAGS}
+ 
+-HD_FFLAGS		= ${HD_STD_FFLAGS} -I${HD_PREFIX}/include/fgsl
++HD_FFLAGS		= ${HD_STD_FFLAGS} -I${HD_PREFIX}/include/fgsl -I${PREFIX}/include/fgsl
+ 
+ HD_INSTALL_LIBRARIES	= ${HD_LIBRARY_ROOT}
+ 

@@ -2,26 +2,23 @@
 
 context:
   name: heasoft
-  version: 6.34
+  version: 02252025
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  sha256: 493bf0af40db84d1c75a4c2880a5b427a97e2b03db1fa060aa33041aa433901f
+  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
+  sha256: 23bef64188b190bb7e6eb6647645d94c451e6b178a814c0a9f033fa17fa355cc
   patches:
-    - gsl_configure.patch
-    - heainit.patch
-    - heaev_Makefile.patch
     - tcltk_Makefile.patch
     - heasoftpy_install.patch
     - pgplot_makefiles.patch
     - xspec.patch
     - zlib_makefiles.patch
-    - hitomi_makefiles.patch
     - python_makefiles.patch
+    - fgsl.patch
 
 build:
   number: 0
