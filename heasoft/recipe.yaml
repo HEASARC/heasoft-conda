@@ -19,6 +19,7 @@ source:
     - zlib_makefiles.patch
     - python_makefiles.patch
     - fgsl.patch
+    - hitomi_makefile.patch
 
 build:
   number: 0
