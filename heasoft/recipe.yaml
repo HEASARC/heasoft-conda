@@ -2,7 +2,7 @@
 
 context:
   name: heasoft
-  version: 02252025
+  version: 6.35.02252025
 
 package:
   name: ${{ name|lower }}
@@ -29,9 +29,6 @@ requirements:
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
     - pkg-config
-    - if: linux
-      then:
-        - patchelf
   host:
     - libcurl
     - zlib
