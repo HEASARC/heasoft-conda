@@ -3,13 +3,14 @@
 context:
   name: heasoft
   version: 6.35
+  build: 02252025
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
+  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.${{ build }}.tar
   sha256: 23bef64188b190bb7e6eb6647645d94c451e6b178a814c0a9f033fa17fa355cc
   patches:
     - tcltk_Makefile.patch
@@ -22,7 +23,7 @@ source:
     - hitomi_makefile.patch
 
 build:
-  number: 02252025
+  number: ${{ build }}
 
 requirements:
   build:
