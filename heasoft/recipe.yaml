@@ -2,7 +2,7 @@
 
 context:
   name: heasoft
-  version: 6.35.02252025
+  version: 6.35
 
 package:
   name: ${{ name|lower }}
@@ -22,7 +22,7 @@ source:
     - hitomi_makefile.patch
 
 build:
-  number: 0
+  number: 02252025
 
 requirements:
   build:
