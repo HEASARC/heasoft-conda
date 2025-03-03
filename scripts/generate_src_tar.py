@@ -1,9 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import argparse
 import json
 import subprocess
+from datetime import datetime
 
 
 sep_line = '-'*30
@@ -38,7 +39,7 @@ def _run_cmd(cmd, dryrun=False):
         subprocess.call(cmd, shell=True)
 
 
-def pack_files(package, version, config, dryrun):
+def pack_files(package, version, dev, config, dryrun):
     """Pack the requested package files to a tar file
 
     Parameters:
@@ -47,6 +48,8 @@ def pack_files(package, version, config, dryrun):
         package name from the config file
     version: str
         package version
+    dev: bool
+        If true, use the dev-root location instead of root
     config: dict
         dict of the config information
     dryrun: bool
@@ -65,6 +68,9 @@ def pack_files(package, version, config, dryrun):
 
     # handle the case of a link to another package
     if 'link' in pconfig:
+        if dev:
+            today = datetime.now().strftime('%d%m%Y')
+            version = f'{version}.{today}'
         linked_packaged = pconfig['link'].format(version=version)
         if not dryrun and not os.path.exists(f'{linked_packaged}.tar'):
             raise ValueError(
@@ -76,10 +82,16 @@ def pack_files(package, version, config, dryrun):
             _run_cmd(cmd, dryrun)
     else:
 
-        rootdir = pconfig.get(
-            'root',
-            '/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}"'
-        )
+        if dev:
+            rootdir = pconfig.get(
+                'dev-root',
+                '/software/lheasoft/irby/release/heasoft'
+            )
+        else:
+            rootdir = pconfig.get(
+                'root',
+                '/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}"'
+            )
         rootdir = rootdir.format(package=package, version=version)
         if not os.path.exists(rootdir) and not dryrun:
             raise ValueError(
@@ -102,6 +114,9 @@ def pack_files(package, version, config, dryrun):
 
         cwd = os.getcwd()
         basedir = os.path.basename(rootdir)
+        if dev:
+            today = datetime.now().strftime('%d%m%Y')
+            version = f'{version}.{today}'
         tarfile = f'{cwd}/{package}-{version}.tar'
         cmd = (
             f'tar -cvf {tarfile} ' +
@@ -125,6 +140,11 @@ if __name__ == '__main__':
 
     parser.add_argument(
         '-v', '--version', help='Package version. e.g. 6.34'
+    )
+
+    parser.add_argument(
+        '--dev', action='store_true', default=False,
+        help='Use dev-root to locate the package to root'
     )
 
     parser.add_argument(

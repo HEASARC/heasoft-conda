@@ -3,20 +3,11 @@
     "packages": {
         "heasoft": {
             "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/irby/release/heasoft-{version}",
             "include": ["*"],
             "exclude": [
                 "x86_64-pc-linux-gnu-*",
                 "x86_64-apple*",
-                "spectral/help",
-                "spectral/modelData",
-                "Xspec/src/spectral/modelData",
-                "ftools/xstar/data/atdb.fits"
-            ]
-        },
-        "heasoft-dev": {
-            "root": "/software/lheasoft/irby/release/heasoft",
-            "include": ["*"],
-            "exclude": [
                 "spectral/help",
                 "spectral/modelData",
                 "Xspec/src/spectral/modelData",
@@ -28,6 +19,7 @@
         },
         "xspec-data": {
             "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/irby/release/heasoft-{version}",
             "include": [
                 "spectral/modelData"
             ],
@@ -40,6 +32,7 @@
         },
         "xspec-data-extra": {
             "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/irby/release/heasoft-{version}",
             "include": [
                 "spectral/modelData/apec_*",
                 "spectral/modelData/eigen_*",
