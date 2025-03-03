@@ -3,7 +3,7 @@
 
 context:
   name: xspec-data
-  version: 6.34
+  version: 6.35
   hea_subdir: heasoft
 
 package:

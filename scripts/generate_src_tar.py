@@ -4,7 +4,6 @@ import os
 import argparse
 import json
 import subprocess
-from datetime import datetime
 
 
 sep_line = '-'*30
@@ -68,9 +67,6 @@ def pack_files(package, version, dev, config, dryrun):
 
     # handle the case of a link to another package
     if 'link' in pconfig:
-        if dev:
-            today = datetime.now().strftime('%d%m%Y')
-            version = f'{version}.{today}'
         linked_packaged = pconfig['link'].format(version=version)
         if not dryrun and not os.path.exists(f'{linked_packaged}.tar'):
             raise ValueError(
@@ -114,9 +110,6 @@ def pack_files(package, version, dev, config, dryrun):
 
         cwd = os.getcwd()
         basedir = os.path.basename(rootdir)
-        if dev:
-            today = datetime.now().strftime('%d%m%Y')
-            version = f'{version}.{today}'
         tarfile = f'{cwd}/{package}-{version}.tar'
         cmd = (
             f'tar -cvf {tarfile} ' +

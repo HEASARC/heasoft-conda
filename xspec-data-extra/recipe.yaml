@@ -4,7 +4,7 @@
 
 context:
   name: xspec-data-extra
-  version: 6.34
+  version: 6.35
   hea_subdir: heasoft
 
 package:
