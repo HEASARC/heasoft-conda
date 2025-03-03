@@ -21,23 +21,23 @@
             "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
             "dev-root": "/software/lheasoft/irby/release/heasoft-{version}",
             "include": [
-                "spectral/modelData"
+                "Xspec/src/spectral/modelData"
             ],
             "exclude": [
-                "spectral/modelData/apec_*",
-                "spectral/modelData/eigen_*",
-                "spectral/modelData/slimbb-full.fits",
-                "spectral/modelData/xillver-a-Ec3.fits"
+                "Xspec/src/spectral/modelData/apec_*",
+                "Xspec/src/spectral/modelData/eigen_*",
+                "Xspec/src/spectral/modelData/slimbb-full.fits",
+                "Xspec/src/spectral/modelData/xillver-a-Ec3.fits"
             ]
         },
         "xspec-data-extra": {
             "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
             "dev-root": "/software/lheasoft/irby/release/heasoft-{version}",
             "include": [
-                "spectral/modelData/apec_*",
-                "spectral/modelData/eigen_*",
-                "spectral/modelData/slimbb-full.fits",
-                "spectral/modelData/xillver-a-Ec3.fits"
+                "Xspec/src/spectral/modelData/apec_*",
+                "Xspec/src/spectral/modelData/eigen_*",
+                "Xspec/src/spectral/modelData/slimbb-full.fits",
+                "Xspec/src/spectral/modelData/xillver-a-Ec3.fits"
             ]
         }
     }
