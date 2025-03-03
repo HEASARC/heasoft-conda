@@ -135,7 +135,8 @@ if __name__ == '__main__':
         description='generate conda source tar files')
 
     parser.add_argument(
-        '-p', '--package', help='Package name. e.g. heasoft'
+        '-p', '--package',
+        help='Package name. e.g. heasoft; ignored if --all is used'
     )
 
     parser.add_argument(
@@ -145,6 +146,11 @@ if __name__ == '__main__':
     parser.add_argument(
         '--dev', action='store_true', default=False,
         help='Use dev-root to locate the package to root'
+    )
+
+    parser.add_argument(
+        '-a', '--all', action='store_true', default=False,
+        help='Generate all packages. If true, ignore -p'
     )
 
     parser.add_argument(
@@ -161,5 +167,12 @@ if __name__ == '__main__':
     # read the config file
     config = get_config(args.config)
 
-    # Pack the files
-    pack_files(args.package, args.version, config, args.dryrun)
+    if args.all:
+        # find all packages
+        packages = config['packages'].keys()
+
+        for package in packages:
+            pack_files(package, args.version, args.dev, config, args.dryrun)
+    else:
+        # Pack the files
+        pack_files(args.package, args.version, args.dev, config, args.dryrun)
