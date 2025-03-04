@@ -29,14 +29,6 @@ if [ "$ostype" = "Darwin" ]; then
     fi
 fi
 
-# clean non-utf-8 characters; rattler does not like that in source code
-
-for file in `find ftools/asca suzaku -type f ! -executable -exec file --mime-type {} + \
-        | grep 'text/' | cut -d: -f1`; do
-    iconv -f utf-8 -t utf-8 -c $file -o $file.utf8
-    mv $file.utf8 $file
-done
-
 
 configure_args=(
     --prefix=$PREFIX/$HEA_SUBDIR
