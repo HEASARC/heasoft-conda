@@ -45,6 +45,9 @@ configure_args=(
     --x-libraries=$PREFIX/lib
 )
 
+if [ "$ostype" = "Darwin" ]; then
+    mv $PREFIX/lib/libtk8.6.dylib $PREFIX/lib/libtk8.6.dylib.off
+fi
 
 cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.log.txt || false

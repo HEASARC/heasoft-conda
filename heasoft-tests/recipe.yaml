@@ -2,27 +2,24 @@
 
 context:
   name: heasoft-tests
-  version: 6.34
+  version: 6.35
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  sha256: 493bf0af40db84d1c75a4c2880a5b427a97e2b03db1fa060aa33041aa433901f
+  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
+  sha256: a6c2a1170feee361abd6cefdffca717b23d59f537a1a13f28e904c6f04ebdc2a
   patches:
-    - ../heasoft/gsl_configure.patch
-    - ../heasoft/heainit.patch
-    - ../heasoft/heaev_Makefile.patch
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/heasoftpy_install.patch
     - ../heasoft/pgplot_makefiles.patch
     - ../heasoft/xspec.patch
     - ../heasoft/zlib_makefiles.patch
-    - ../heasoft/hitomi_makefiles.patch
     - ../heasoft/python_makefiles.patch
-    - maxi_mxgrmfgen_test.patch
+    - ../heasoft/fgsl.patch
+    - ../heasoft/hitomi_makefile.patch
 
 build:
   number: 0
