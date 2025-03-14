@@ -37,9 +37,9 @@ requirements:
       then:
         - patchelf
   host:
-    - heasoft = 6.34
+    - heasoft = ${{ version }}
   run:
-    - heasoft = 6.34
+    - heasoft = ${{ version }}
 
 
 about:
