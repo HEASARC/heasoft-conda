@@ -25,7 +25,8 @@
             ],
             "exclude": [
                 "Xspec/src/spectral/modelData/apec_*",
-                "Xspec/src/spectral/modelData/eigen_*",
+                "Xspec/src/spectral/modelData/*eigen*",
+                "Xspec/src/spectral/modelData/spex*",
                 "Xspec/src/spectral/modelData/slimbb-full.fits",
                 "Xspec/src/spectral/modelData/xillver-a-Ec3.fits"
             ]
@@ -35,7 +36,8 @@
             "dev-root": "/software/lheasoft/irby/release/heasoft-{version}",
             "include": [
                 "Xspec/src/spectral/modelData/apec_*",
-                "Xspec/src/spectral/modelData/eigen_*",
+                "Xspec/src/spectral/modelData/*eigen*",
+                "Xspec/src/spectral/modelData/spex*",
                 "Xspec/src/spectral/modelData/slimbb-full.fits",
                 "Xspec/src/spectral/modelData/xillver-a-Ec3.fits"
             ]

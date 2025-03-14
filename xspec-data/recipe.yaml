@@ -12,7 +12,7 @@ package:
 
 source:
   url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: 3dbc763ee10cb49ce106a27390c161bb71efa5230f2ee9b1a0b09329effd6ab9
+  sha256: 455e4855223e1f2014076c3d860de2975798dd7e63a4cf74f561d433fd1eaa29
 
 build:
   noarch: generic

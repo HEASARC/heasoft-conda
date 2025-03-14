@@ -10,16 +10,13 @@ package:
 
 source:
   url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: a6c2a1170feee361abd6cefdffca717b23d59f537a1a13f28e904c6f04ebdc2a
+  sha256: 04dad2cf662c247fa67688c057a1a807024957be5bdca7be7b79dcd774b80b9d
   patches:
     - tcltk_Makefile.patch
-    - heasoftpy_install.patch
     - pgplot_makefiles.patch
     - xspec.patch
     - zlib_makefiles.patch
     - python_makefiles.patch
-    - fgsl.patch
-    - hitomi_makefile.patch
 
 build:
   number: 0
