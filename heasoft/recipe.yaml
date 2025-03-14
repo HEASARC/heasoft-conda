@@ -51,6 +51,7 @@ requirements:
     - pip
     - setuptools
     - numpy
+    - scipy
     - astropy-base
     - matplotlib
   run:
@@ -66,6 +67,7 @@ requirements:
     - fgsl
     - perl
     - numpy
+    - scipy
     - astropy-base
     - matplotlib
     - xspec-data = 12.14.1
