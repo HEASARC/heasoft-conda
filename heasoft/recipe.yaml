@@ -12,6 +12,7 @@ source:
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
   sha256: 96c8dc74cbd26a45fab4f615e1a605f0c3d5ce35c49668f6198870cad1c92bc0
   patches:
+    - gsl_configure.patch
     - tcltk_Makefile.patch
     - pgplot_makefiles.patch
     - xspec.patch
