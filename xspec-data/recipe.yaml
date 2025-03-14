@@ -3,7 +3,7 @@
 
 context:
   name: xspec-data
-  version: 12.14.1
+  version: 6.34
   hea_subdir: heasoft
 
 package:
@@ -11,21 +11,21 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: 180cdca9f8ec2a54f960782f152ce03e394bf78be8a8d623df0e97d381025571
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  sha256: 6828b6c7435c3dfbb609b562b282d1992bf6cf02e1975c2f2bb4d4753818a7b3
 
 build:
   noarch: generic
   script:
     content: |
       mkdir -p $PREFIX/${{ hea_subdir }}/spectral/modelData
-      mv spectral/modelData/* $PREFIX/${{ hea_subdir }}/spectral/modelData/
+      mv Xspec/src/spectral/modelData/* $PREFIX/${{ hea_subdir }}/spectral/modelData/
 
 tests:
   - package_contents:
       files:
         - ${{ hea_subdir }}/spectral/modelData/Bearden.fits
-        - ${{ hea_subdir }}/spectral/modelData/mekal.fits
+        - ${{ hea_subdir }}/spectral/modelData/mekal.mod
 
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/heasoft/

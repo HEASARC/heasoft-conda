@@ -9,9 +9,8 @@ package:
   version: ${{ version }}
 
 source:
-  #url: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/${{ name }}-${{ version }}.tar.gz
-  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: afd54747e6780489eb620eeb31c15fb0a9245a8271c2d44969c207053a65b2ed
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  sha256: 493bf0af40db84d1c75a4c2880a5b427a97e2b03db1fa060aa33041aa433901f
   patches:
     - gsl_configure.patch
     - heainit.patch
@@ -52,7 +51,7 @@ requirements:
     - pip
     - setuptools
     - numpy
-    - astropy
+    - astropy-base
     - matplotlib
   run:
     - libcurl
@@ -67,7 +66,7 @@ requirements:
     - fgsl
     - perl
     - numpy
-    - astropy
+    - astropy-base
     - matplotlib
     - xspec-data = 12.14.1
 

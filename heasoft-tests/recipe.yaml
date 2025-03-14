@@ -9,20 +9,19 @@ package:
   version: ${{ version }}
 
 source:
-  #url: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/${{ name }}-${{ version }}.tar.gz
-  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: afd54747e6780489eb620eeb31c15fb0a9245a8271c2d44969c207053a65b2ed
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  sha256: 493bf0af40db84d1c75a4c2880a5b427a97e2b03db1fa060aa33041aa433901f
   patches:
-    - gsl_configure.patch
-    - heainit.patch
-    - heaev_Makefile.patch
-    - tcltk_Makefile.patch
-    - heasoftpy_install.patch
-    - pgplot_makefiles.patch
-    - xspec.patch
-    - zlib_makefiles.patch
-    - hitomi_makefiles.patch
-    - python_makefiles.patch
+    - ../heasoft/gsl_configure.patch
+    - ../heasoft/heainit.patch
+    - ../heasoft/heaev_Makefile.patch
+    - ../heasoft/tcltk_Makefile.patch
+    - ../heasoft/heasoftpy_install.patch
+    - ../heasoft/pgplot_makefiles.patch
+    - ../heasoft/xspec.patch
+    - ../heasoft/zlib_makefiles.patch
+    - ../heasoft/hitomi_makefiles.patch
+    - ../heasoft/python_makefiles.patch
     - maxi_mxgrmfgen_test.patch
 
 build:
@@ -46,7 +45,7 @@ requirements:
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
   #license_file: LICENSE
-  summary: the core library of heasoft
+  summary: adds unit test binaries to the core heasoft library. This is for internal testing.
   description: |
-    xspec.
+    heasoft tests.
   documentation: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
