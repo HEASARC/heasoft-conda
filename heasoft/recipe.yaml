@@ -9,8 +9,8 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: 04dad2cf662c247fa67688c057a1a807024957be5bdca7be7b79dcd774b80b9d
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  sha256: 96c8dc74cbd26a45fab4f615e1a605f0c3d5ce35c49668f6198870cad1c92bc0
   patches:
     - tcltk_Makefile.patch
     - pgplot_makefiles.patch

@@ -11,8 +11,8 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: 455e4855223e1f2014076c3d860de2975798dd7e63a4cf74f561d433fd1eaa29
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  sha256: c3a4ac0ec2705e7d3407615a3184ee50b9d52c45419d4186759bba74ebe9d1ef
 
 build:
   noarch: generic
