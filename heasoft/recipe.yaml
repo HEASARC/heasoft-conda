@@ -9,8 +9,8 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: 7929691a627e6ba74c2b9e797f248105e45a1b356a7910219e329bebaffe731d
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  sha256: 493bf0af40db84d1c75a4c2880a5b427a97e2b03db1fa060aa33041aa433901f
   patches:
     - gsl_configure.patch
     - heainit.patch
@@ -69,7 +69,7 @@ requirements:
     - scipy
     - astropy-base
     - matplotlib
-    - xspec-data = ${{ version }}
+    - xspec-data = 12.14.1
 
 about:
   homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/

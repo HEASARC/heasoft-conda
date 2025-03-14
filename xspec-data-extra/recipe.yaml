@@ -12,15 +12,15 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: d366e893cb24a92bb602c9eb99d1492ae39737b94d33683c2b6ab9a208c75948
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  sha256: d228c3d04f661b4cc0b18ddcc8f60c6db590ab7fdbadb7e28927250e498b860a
 
 build:
   noarch: generic
   script:
     content: |
       mkdir -p $PREFIX/${{ hea_subdir }}/spectral/modelData
-      mv spectral/modelData/* $PREFIX/${{ hea_subdir }}/spectral/modelData/
+      mv Xspec/src/spectral/modelData/* $PREFIX/${{ hea_subdir }}/spectral/modelData/
 
 tests:
   - package_contents:
