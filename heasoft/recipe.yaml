@@ -18,6 +18,7 @@ source:
     - xspec.patch
     - zlib_makefiles.patch
     - python_makefiles.patch
+    - configures.patch
 
 build:
   number: 0
