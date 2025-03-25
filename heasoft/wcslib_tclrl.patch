@@ -1,0 +1,198 @@
+diff --git a/heacore/BUILD_DIR/Makefile.in b/heacore/BUILD_DIR/Makefile.in
+index d24d179b76..36aa6cd9f8 100644
+--- a/heacore/BUILD_DIR/Makefile.in
++++ b/heacore/BUILD_DIR/Makefile.in
+@@ -537,6 +537,9 @@ build-wcslib:
+ 	else \
+ 		${MAKE} subdir-wcslib CC="${CC}" FC="${FC}" FLAVOUR=${WCSFLAV} WCSTRIG=WRAPPER FLEX="" LIBWCS="lib${WCSLIB}.a"; \
+ 	fi
++	@if [ "x${EXT}" = xdarwin -a -f ${WCSLIB_DIR}/C/lib${WCSLIB}${SHLIB_SUFFIX} ]; then \
++		/usr/bin/install_name_tool -id ${HD_LIB}/libwcs${WCSLIB_VERS_SHORT}${SHLIB_SUFFIX} ${WCSLIB_DIR}/C/lib${WCSLIB}${SHLIB_SUFFIX}; \
++	fi
+ 
+ publish-wcslib:
+ 	@${MAKE} install-wcslib HD_TOP_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_EXEC_PFX=${HD_BLD_EXEC_PFX} HD_CP_P="${HD_LN_S}"
+@@ -548,6 +551,14 @@ install-wcslib:
+ 	${MAKE} install-headers HD_INSTALL_HEADERS="$$hd_install_headers" \
+ 		HD_INC_SUBDIR="wcslib"
+ 	${MAKE} install-libraries HD_INSTALL_LIBRARIES=${WCSLIB_DIR}/C/${WCSLIB}
++	@if [ -f ${HD_LIB}/libwcs.so${WCSLIB_VERS} ]; then \
++		${HD_INSTALL} ${HD_LIB}/libwcs.so${WCSLIB_VERS} \
++			${HD_LIB}/lib${WCSLIB}.so ${HD_LN_S}; \
++	fi
++	@if [ -f ${HD_LIB}/libwcs${WCSLIB_VERS}${SHLIB_SUFFIX} ]; then \
++		${HD_INSTALL} ${HD_LIB}/libwcs${WCSLIB_VERS}${SHLIB_SUFFIX} \
++			${HD_LIB}/libwcs${WCSLIB_VERS_SHORT}${SHLIB_SUFFIX} ${HD_LN_S}; \
++	fi
+ 
+ clean-wcslib:
+ 	@${MAKE} subdir-wcslib HD_TARGET=clean
+diff --git a/heacore/BUILD_DIR/configure b/heacore/BUILD_DIR/configure
+index e7c9262ecc..60fa3b8a03 100755
+--- a/heacore/BUILD_DIR/configure
++++ b/heacore/BUILD_DIR/configure
+@@ -669,6 +669,8 @@ HEAINIT
+ AHLOG
+ AHGEN
+ AHFITS
++WCSLIB_VERS_SHORT
++WCSLIB_VERS
+ WCSLIB_DIR
+ GSL_DIR
+ GSLCBLAS
+@@ -8752,6 +8754,8 @@ PILPERL_DIR=`$hd_scanenv $hd_conf_file PILPERL_DIR`
+ HDUTILSPERL_DIR=`$hd_scanenv $hd_conf_file HDUTILSPERL_DIR`
+ HDINITPERL_DIR=`$hd_scanenv $hd_conf_file HDINITPERL_DIR`
+ WCSLIB_DIR=`$hd_scanenv $hd_conf_file WCSLIB_DIR`
++WCSLIB_VERS=`$hd_scanenv $hd_conf_file WCSLIB_VERS`
++WCSLIB_VERS_SHORT=`$hd_scanenv $hd_conf_file WCSLIB_VERS_SHORT`
+ 
+ AHFITS=`$hd_scanenv $hd_conf_file AHFITS`
+ AHGEN=`$hd_scanenv $hd_conf_file AHGEN`
+@@ -8807,6 +8811,8 @@ ST_STREAM=`$hd_scanenv $hd_conf_file ST_STREAM`
+ 
+ 
+ 
++
++
+ 
+ 
+ 
+diff --git a/heacore/BUILD_DIR/configure.in b/heacore/BUILD_DIR/configure.in
+index 5a6781ccb5..277665b19e 100644
+--- a/heacore/BUILD_DIR/configure.in
++++ b/heacore/BUILD_DIR/configure.in
+@@ -1926,6 +1926,8 @@ PILPERL_DIR=`$hd_scanenv $hd_conf_file PILPERL_DIR`
+ HDUTILSPERL_DIR=`$hd_scanenv $hd_conf_file HDUTILSPERL_DIR`
+ HDINITPERL_DIR=`$hd_scanenv $hd_conf_file HDINITPERL_DIR`
+ WCSLIB_DIR=`$hd_scanenv $hd_conf_file WCSLIB_DIR`
++WCSLIB_VERS=`$hd_scanenv $hd_conf_file WCSLIB_VERS`
++WCSLIB_VERS_SHORT=`$hd_scanenv $hd_conf_file WCSLIB_VERS_SHORT`
+ 
+ AHFITS=`$hd_scanenv $hd_conf_file AHFITS`
+ AHGEN=`$hd_scanenv $hd_conf_file AHGEN`
+@@ -1969,6 +1971,8 @@ AC_SUBST(GSL)
+ AC_SUBST(GSLCBLAS)
+ AC_SUBST(GSL_DIR)
+ AC_SUBST(WCSLIB_DIR)
++AC_SUBST(WCSLIB_VERS)
++AC_SUBST(WCSLIB_VERS_SHORT)
+ AC_SUBST(AHFITS)
+ AC_SUBST(AHGEN)
+ AC_SUBST(AHLOG)
+diff --git a/heacore/BUILD_DIR/hd_config_info b/heacore/BUILD_DIR/hd_config_info
+index 6754829310..e182f26bb4 100644
+--- a/heacore/BUILD_DIR/hd_config_info
++++ b/heacore/BUILD_DIR/hd_config_info
+@@ -222,7 +222,8 @@ ast_CONFIGURE_CMD="cd $AST_DIR; ./configure --without-stardocs --without-pthread
+ # WCSLIB
+ #==============================================================================
+ 
+-WCSLIB_VERS=-8.3
++WCSLIB_VERS=.8.3
++WCSLIB_VERS_SHORT=.8
+ if [ "x$WCSLIB_VERS" = x ]; then
+   WCSLIB=wcs
+ else
+diff --git a/heacore/BUILD_DIR/hmakerc.in b/heacore/BUILD_DIR/hmakerc.in
+index 050135cb23..959bfed2c7 100644
+--- a/heacore/BUILD_DIR/hmakerc.in
++++ b/heacore/BUILD_DIR/hmakerc.in
+@@ -56,6 +56,8 @@ FFTW="@FFTW@"
+ FFTW_DIR="@FFTW_DIR@"
+ WCSLIB="@WCSLIB@"
+ WCSLIB_DIR="@WCSLIB_DIR@"
++WCSLIB_VERS="@WCSLIB_VERS@"
++WCSLIB_VERS_SHORT="@WCSLIB_VERS_SHORT@"
+ 
+ #-------------------------------------------------------------------------------
+ # Build-related macros.
+@@ -222,6 +224,8 @@ export HDINITPERL
+ export HDINITPERL_DIR
+ export WCSLIB
+ export WCSLIB_DIR
++export WCSLIB_VERS
++export WCSLIB_VERS_SHORT
+ export FGSL
+ export FGSL_DIR
+ export GSL_LIBS
+diff --git a/heacore/wcslib/configure b/heacore/wcslib/configure
+index a9de28a926..9405cc7ae1 100755
+--- a/heacore/wcslib/configure
++++ b/heacore/wcslib/configure
+@@ -7240,11 +7240,10 @@ printf "%s\n" "$as_me: WARNING: Generation of WCS shared libraries disabled." >&
+ 
+     case "$host_os" in
+     darwin*)
+-      SHRLIB="libwcs-$LIBVER.dylib"
+-      SONAME="libwcs-$SHVER.dylib"
++      SHRLIB="libwcs.$LIBVER.dylib"
++      SONAME="libwcs.$SHVER.dylib"
+       SHRLD="$SHRLD -dynamiclib -single_module"
+-      SHRLD="$SHRLD -compatibility_version $SHVER -current_version $LIBVER"
+-      SHRLD="$SHRLD -headerpad_max_install_names -install_name @rpath/$SHRLIB"
++      SHRLD="$SHRLD -compatibility_version $SHVER -current_version $LIBVER -install_name \$(SONAME)"
+       SHRLN="libwcs.dylib"
+ 
+       case "$host_cpu" in
+@@ -7262,9 +7261,9 @@ printf "%s\n" "$as_me: WARNING: Generation of WCS shared libraries disabled." >&
+       ;;
+     *)
+       # Covers Linux and Solaris at least.
+-      SHRLIB="libwcs-$LIBVER.so"
+-      SONAME="libwcs-$SHVER.so"
+-      SHRLD="$SHRLD -shared -Wl,-h\$(SHRLIB)"
++      SHRLIB="libwcs.so.$LIBVER"
++      SONAME="libwcs.so.$SHVER"
++      SHRLD="$SHRLD -shared -Wl,-h\$(SONAME)"
+       SHRLN="libwcs.so"
+       ;;
+     esac
+diff --git a/heacore/wcslib/configure.ac b/heacore/wcslib/configure.ac
+index 30cfe8be10..0c3b3e4ef1 100644
+--- a/heacore/wcslib/configure.ac
++++ b/heacore/wcslib/configure.ac
+@@ -321,11 +321,12 @@ if test "x$ac_cv_c_compiler_gnu" = xyes ; then
+ 
+     case "$host_os" in
+     darwin*)
+-      SHRLIB="libwcs-$LIBVER.dylib"
+-      SONAME="libwcs-$SHVER.dylib"
++      SHRLIB="libwcs.$LIBVER.dylib"
++      SONAME="libwcs.$SHVER.dylib"
+       SHRLD="$SHRLD -dynamiclib -single_module"
+-      SHRLD="$SHRLD -compatibility_version $SHVER -current_version $LIBVER"
+-      SHRLD="$SHRLD -headerpad_max_install_names -install_name @rpath/$SHRLIB"
++      SHRLD="$SHRLD -compatibility_version $SHVER -current_version $LIBVER -install_name \$(SONAME)"
++      #SHRLD="$SHRLD -compatibility_version $SHVER -current_version $LIBVER"
++      #SHRLD="$SHRLD -headerpad_max_install_names -install_name @rpath/$SHRLIB"
+       SHRLN="libwcs.dylib"
+ 
+       case "$host_cpu" in
+@@ -343,9 +344,9 @@ if test "x$ac_cv_c_compiler_gnu" = xyes ; then
+       ;;
+     *)
+       # Covers Linux and Solaris at least.
+-      SHRLIB="libwcs-$LIBVER.so"
+-      SONAME="libwcs-$SHVER.so"
+-      SHRLD="$SHRLD -shared -Wl,-h\$(SHRLIB)"
++      SHRLIB="libwcs.so.$LIBVER"
++      SONAME="libwcs.so.$SHVER"
++      SHRLD="$SHRLD -shared -Wl,-h\$(SONAME)"
+       SHRLN="libwcs.so"
+       ;;
+     esac
+diff --git a/tcltk/BUILD_DIR/Makefile.in b/tcltk/BUILD_DIR/Makefile.in
+index 8e0e681ccf..da1b6d1fec 100644
+--- a/tcltk/BUILD_DIR/Makefile.in
++++ b/tcltk/BUILD_DIR/Makefile.in
+@@ -281,6 +281,9 @@ all-tclreadline default-tclreadline: build-tclreadline publish-tclreadline
+ 
+ build-tclreadline:
+ 	${MAKE} subdir-tclreadline
++	@if [ "x${EXT}" = xdarwin -a -f ${TCLREADLINE_DIR}/.libs/lib${TCLREADLINE}${SHLIB_SUFFIX} ]; then \
++		/usr/bin/install_name_tool -id ${HD_LIB}/lib${TCLREADLINE}${SHLIB_SUFFIX} ${TCLREADLINE_DIR}/.libs/lib${TCLREADLINE}${SHLIB_SUFFIX}; \
++	fi
+ 	@if [ "x${EXT}" = xwin ]; then \
+ 		rm -rf ./$$.tmp; mkdir ./$$.tmp; cd ./$$.tmp; \
+ 		echo "${AR} x ${TCLREADLINE_DIR}/.libs/libtclreadline.a"; \
