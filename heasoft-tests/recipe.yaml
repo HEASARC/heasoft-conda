@@ -18,7 +18,9 @@ source:
     - ../heasoft/zlib_makefiles.patch
     - ../heasoft/python_makefiles.patch
     - ../heasoft/configures.patch
-    - ../heasoft/wcslib_tclrl.patch
+    - if: osx
+      then:
+       - ../heasoft/wcslib_tclrl.patch
 
 build:
   number: 0

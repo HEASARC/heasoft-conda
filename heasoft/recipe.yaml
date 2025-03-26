@@ -19,7 +19,9 @@ source:
     - zlib_makefiles.patch
     - python_makefiles.patch
     - configures.patch
-    - wcslib_tclrl.patch
+    - if: osx
+      then:
+       - wcslib_tclrl.patch
 
 build:
   number: 0
