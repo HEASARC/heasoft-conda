@@ -17,10 +17,10 @@ source:
     - ../heasoft/xspec.patch
     - ../heasoft/zlib_makefiles.patch
     - ../heasoft/python_makefiles.patch
-    - ../heasoft/configures.patch
     - if: osx
       then:
-       - ../heasoft/wcslib_tclrl.patch
+        - ../heasoft/configures.patch
+        - ../heasoft/wcslib_tclrl.patch
 
 build:
   number: 0
