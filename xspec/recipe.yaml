@@ -28,12 +28,11 @@ build:
   number: 0
 
 requirements:
-  build:
+  host:
     - ${{ compiler('cxx') }}
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
     - pkg-config
-  host:
     - libcurl
     - zlib
     - libbrotlidec
