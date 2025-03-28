@@ -47,6 +47,10 @@ make 2>&1 | tee build.log.txt || false
 make install 2>&1 | tee install.log.txt || false
 rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
 
+# for xspec local models
+cp ../Xspec/BUILD_DIR/hmakerc $PREFIX/$HEA_SUBDIR/bin/
+cp ../Xspec/BUILD_DIR/Makefile-std $PREFIX/$HEA_SUBDIR/bin/
+
 if [ "$ostype" = "Darwin" ]; then
     mv $PREFIX/lib/libtk8.6.dylib.off $PREFIX/lib/libtk8.6.dylib
 fi
