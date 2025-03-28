@@ -2,26 +2,27 @@
 
 context:
   name: xspec
-  version: 12.14.1
+  version: 12.15.0
+  hea_version: 6.35
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  #url: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/${{ name }}-${{ version }}.tar.gz
-  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: c2bd0610588ea1ca59739a05e87afac49758b5760a8b98dd4840edff9888fae5
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/heasoft-${{ hea_version }}.tar.gz
+  sha256: 96c8dc74cbd26a45fab4f615e1a605f0c3d5ce35c49668f6198870cad1c92bc0
   patches:
-    - gsl_configure.patch
-    - pgplot_makemake.patch
-    - xspec_configure.patch
-    - heainit.patch
-    - heaev_Makefile.patch
-    - xsmix_Makefile.patch
-    - heasp_python_Makefile.patch
-    - pyxspec_Makefile.patch
-    - mxspec_Makefile.patch
+    - ../heasoft/gsl_configure.patch
+    - ../heasoft/tcltk_Makefile.patch
+    - ../heasoft/pgplot_makefiles.patch
+    - ../heasoft/xspec.patch
+    - ../heasoft/zlib_makefiles.patch
+    - ../heasoft/python_makefiles.patch
+    - if: osx
+      then:
+      - ../heasoft/configures.patch
+      - ../heasoft/wcslib_tclrl.patch
 
 build:
   number: 0
@@ -32,7 +33,6 @@ requirements:
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
     - pkg-config
-    - python
   host:
     - libcurl
     - zlib
@@ -41,9 +41,9 @@ requirements:
     - libpng
     - xorg-libx11
     - xorg-libxt
+    - xorg-xorgproto
     - xorg-libxcursor
     - fgsl
-    - perl
     - numpy
   run:
     - libcurl
@@ -54,20 +54,16 @@ requirements:
     - xorg-libx11
     - xorg-libxt
     - xorg-libxcursor
+    - xorg-xorgproto
     - fgsl
-    - perl
     - numpy
-    - xspec-data = 12.14.1
+    - xspec-data = ${{ hea_version }}
 
-
-tests:
-  - script:
-    - echo "No implemeted yet"
 
 about:
-  homepage: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
+  homepage: https://heasarc.gsfc.nasa.gov/docs/xanadu/xanadu.html
   #license_file: LICENSE
-  summary: the core library of heasoft
+  summary: Xspec
   description: |
     xspec.
-  documentation: https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/
+  documentation: https://heasarc.gsfc.nasa.gov/docs/xanadu/xanadu.html
