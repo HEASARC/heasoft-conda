@@ -3,14 +3,14 @@
 
 context:
   name: xstar-data
-  version: 6.34
+  version: 6.35
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 source:
-  url: https://heasarcdev.gsfc.nasa.gov/azoghbi/software-full/${{ name }}-${{ version }}.tar
-  sha256: 3d096b16a509cbd1e1f5d65125c938a7d3dc0763b5128551abcd051b4af2e678
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
+  sha256: 3f26cc85998cffd9ced8a77591680324b027a6a8a5aae516cca0846b37efb6c9
 build:
   number: 0
   noarch: generic
@@ -18,13 +18,11 @@ build:
     content: |
       HEA_SUBDIR=heasoft
       mkdir -p $PREFIX/$HEA_SUBDIR/refdata
-      mv data/* $PREFIX/$HEA_SUBDIR/refdata/
+      mv ftools/xstar/data/* $PREFIX/$HEA_SUBDIR/refdata/
 
 about:
-  homepage: http://heasarc.gsfc.nasa.gov/fitsio/fitsio.html
-  #license: LicenseRef-fitsio
-  #license_file: LICENSE
+  homepage: https://heasarc.gsfc.nasa.gov/docs/software/xstar/xstar.html
   summary: Main xstar data
   description: |
     Main xstar data
-  documentation: https://heasarc.gsfc.nasa.gov/docs/software/fitsio/quick/quick.html
+  documentation: https://heasarc.gsfc.nasa.gov/docs/software/xstar/xstar.html

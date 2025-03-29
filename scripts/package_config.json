@@ -41,6 +41,13 @@
                 "Xspec/src/spectral/modelData/slimbb-full.fits",
                 "Xspec/src/spectral/modelData/xillver-a-Ec3.fits"
             ]
+        },
+        "xstar-data": {
+            "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
+            "dev-root": "/software/lheasoft/irby/release/heasoft-{version}",
+            "include": [
+                "ftools/xstar/data/"
+            ]
         }
     }
 }
