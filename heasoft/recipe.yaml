@@ -3,7 +3,6 @@
 context:
   name: heasoft
   version: 6.35.1
-  xspec_data_version: 6.35
 
 package:
   name: ${{ name|lower }}
