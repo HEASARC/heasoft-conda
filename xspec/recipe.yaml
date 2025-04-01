@@ -56,7 +56,6 @@ requirements:
     - xorg-xorgproto
     - fgsl
     - numpy
-    - xspec-data = ${{ hea_version }}
 
 
 about:

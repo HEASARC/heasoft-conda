@@ -65,7 +65,6 @@ requirements:
     - scipy
     - astropy-base
     - matplotlib
-    - xspec-data = ${{ version }}
     - if: linux or (osx and not arm64)
       then:
         - lynx
