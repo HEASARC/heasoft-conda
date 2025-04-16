@@ -81,10 +81,10 @@ source \$HEADAS/BUILD_DIR/headas-init.csh
 EOF
 chmod +x $PREFIX/bin/heainit.csh
 
-cat <<EOF >$PREFIX/bin/.heasoft-post-link.sh
+cat <<EOF >$PREFIX/bin/.xspec-post-link.sh
 mkdir -p \$CONDA_PREFIX/etc/conda/activate.d
 cp \$CONDA_PREFIX/bin/heainit.*sh \$CONDA_PREFIX/etc/conda/activate.d/
 EOF
-cat <<EOF >$PREFIX/bin/.heasoft-pre-unlink.sh
+cat <<EOF >$PREFIX/bin/.xspec-pre-unlink.sh
 rm \$CONDA_PREFIX/etc/conda/activate.d/heainit.*sh > /dev/null 2>&1
 EOF

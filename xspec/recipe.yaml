@@ -25,7 +25,7 @@ source:
       - ../heasoft/wcslib_tclrl.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   host:
