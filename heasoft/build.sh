@@ -83,7 +83,11 @@ chmod +x $PREFIX/bin/heainit.csh
 cat <<EOF >$PREFIX/bin/.heasoft-post-link.sh
 mkdir -p \$CONDA_PREFIX/etc/conda/activate.d
 cp \$CONDA_PREFIX/bin/heainit.*sh \$CONDA_PREFIX/etc/conda/activate.d/
+
+mkdir -p \$CONDA_PREFIX/etc/conda/deactivate.d
+cp \$CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/headas-uninit.*sh \$CONDA_PREFIX/etc/conda/deactivate.d/
 EOF
 cat <<EOF >$PREFIX/bin/.heasoft-pre-unlink.sh
 rm \$CONDA_PREFIX/etc/conda/activate.d/heainit.*sh > /dev/null 2>&1
+rm \$CONDA_PREFIX/etc/conda/activate.d/heauinit.*sh > /dev/null 2>&1
 EOF

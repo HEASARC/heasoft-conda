@@ -1,0 +1,236 @@
+--- BUILD_DIR/headas-uninit.csh	
++++ BUILD_DIR/headas-uninit.csh	
+@@ -0,0 +1,22 @@
++# Filename: headas-uninit.csh
++# Description: C-shell flavor uninitialization for all HEADAS software
++#              runs headas-unset to generate a temporary csh script
++#              tailored specifically to this user and HEADAS software
++#              installation, then source that.
++# Author/Date: Derived from "headas-init.csh" by James Peachey,
++#              HEASARC/GSFC/NASA, May 3, 1999
++#
++if(${?HEADAS} == 0) then 
++  echo "headas-uninit.csh: ERROR -- set HEADAS before sourcing headas-uninit.csh"
++else if(-x "$HEADAS/BUILD_DIR/headas-unset") then 
++  set headas_uninit=`$HEADAS/BUILD_DIR/headas-unset csh`
++  if($status == 0 && "x$headas_uninit" != x) then
++    if(-f "$headas_uninit") then
++      source "$headas_uninit"
++    endif
++      rm -f "$headas_uninit"
++  endif
++  unset headas_uninit
++else
++  echo "headas-uninit.csh: ERROR -- cannot execute $HEADAS/BUILD_DIR/headas-unset"
++endif
+--- BUILD_DIR/headas-uninit.sh
++++ BUILD_DIR/headas-uninit.sh
+@@ -0,0 +1,22 @@
++#  Filename: headas-uninit.sh
++# Description: Bourne-shell flavor uninitialization for all HEADAS software.
++#              Runs headas-unset to generate a sh script tailored
++#              specifically to this user and LHEA software
++#              installation, then source that.
++# Author/Date: Derived from "headas-init.sh" by James Peachey,
++#              HEASARC/GSFC/NASA, May 3, 1999
++#
++if [ "x$HEADAS" = x ]; then 
++  echo "headas-uninit.sh: ERROR -- set HEADAS before sourcing headas-uninit.sh"
++elif [ -x "$HEADAS/BUILD_DIR/headas-unset" ]; then 
++  headas_uninit=`$HEADAS/BUILD_DIR/headas-unset sh`
++  if [ $? -eq 0 -a "x$headas_uninit" != x ]; then
++    if [ -f "$headas_uninit" ]; then
++      . "$headas_uninit"
++    fi
++    rm -f "$headas_uninit"
++  fi
++  unset headas_uninit
++else
++  echo "headas-uninit.sh: ERROR -- cannot execute $HEADAS/BUILD_DIR/headas-unset"
++fi
+--- BUILD_DIR/headas-unset
++++ BUILD_DIR/headas-unset
+@@ -0,0 +1,182 @@
++#! /bin/sh
++#    Filename: headas-unset(.in)
++# Description: Writes an "uninitialization" script for HEADAS software
++#              which is custom fit to the user and the particular
++#              software installation. Note that this script is
++#              designed to be invoked by headas-uninit.csh/headas-uninit.sh,
++#              and should not normally be invoked directly by a user.
++# Author/Date: Derived from "headas-setup.in" by James Peachey,
++#              HEASARC/GSFC/NASA, May 4, 1999
++#
++# local variables used by this script internally only
++#-------------------------------------------------------------------------------
++this_script=`echo $0 | sed 's:.*/::'`
++headas_info="$this_script:"
++headas_error="$headas_info ERROR --"
++headas_error2="$headas_info         "
++
++# check for valid arguments and environment variables
++#-------------------------------------------------------------------------------
++# one and only argument needs to tell flavor of script, used
++# to create the output from this script
++flavor=$1
++if [ "x$flavor" != xcsh -a "x$flavor" != xsh ]; then
++  echo "$headas_info usage $this_script csh|sh" >&2
++  exit 3
++fi
++
++# make sure HEADAS is an absolute path, with no trailing /s
++# avoid using pwd unless necessary, because pwd does not
++# preserve the names of sym-links, which can confuse the issue
++if [ `echo $HEADAS | grep -c '^/'` -eq 0 ]; then
++  HEADAS=`cd "$HEADAS"; pwd`
++else
++  HEADAS=`echo "$HEADAS" | sed 's://*:/:g' | sed 's:/$::'`
++fi
++
++HEADAS_BIN="$HEADAS/bin"
++
++# prune existing references to HEADAS_BIN from path;
++# extra colons are so that match will occur anywhere in path
++PATH=`echo ":$PATH:" | sed "s%:$HEADAS_BIN:%:%g" | sed "s%::*$%%"`
++
++HEADAS_LIB="$HEADAS/lib"
++
++# prune $HEADAS/lib/perl from PERL5LIB & PERLLIB:
++HEADAS_PERLLIBS="$HEADAS_LIB/perl"
++if [ "x$PERL5LIB" != x ]; then
++  PERL5LIB=`echo ":$PERL5LIB:" | sed "s%:$HEADAS_PERLLIBS:%:%g" | sed "s%::*$%%"`;
++fi
++if [ "x$PERLLIB" != x ]; then
++  PERLLIB=`echo ":$PERLLIB:" | sed "s%:$HEADAS_PERLLIBS:%:%g" | sed "s%::*$%%"`;
++fi
++
++# prune $HEADAS/lib & $HEADAS/lib/python from PYTHONPATH:
++if [ "x$PYTHONPATH" != x ]; then
++  PYTHONPATH=`echo ":$PYTHONPATH:" | sed "s%:$HEADAS_LIB/python:%:%g" | \
++	sed "s%:$HEADAS_LIB:%:%g" | sed "s%::*$%%"`
++fi
++
++# prune $HEADAS/lib from LD_LIBRARY_PATH & DYLD_LIBRARY_PATH:
++if [ "x$LD_LIBRARY_PATH" != x ]; then
++  LD_LIBRARY_PATH=`echo ":$LD_LIBRARY_PATH:" | \
++    sed "s%:$HEADAS_LIB:%:%g" | sed "s%::*$%%"`
++fi
++if [ "x$DYLD_LIBRARY_PATH" != x ]; then
++  DYLD_LIBRARY_PATH=`echo ":$DYLD_LIBRARY_PATH:" | \
++    sed "s%:$HEADAS_LIB:%:%g" | sed "s%::*$%%"`
++fi
++
++if [ "x$PFILES" != x ]; then
++
++  # current syspfiles is everything after the semicolon:
++  syspfiles=`echo $PFILES | sed "s%.*;%%"`
++
++  # current locpfiles is everything before the semicolon:
++  locpfiles=`echo $PFILES | sed "s%;*$syspfiles$%%"`
++  
++  # prune syspfiles & locpfiles separately
++  if [ "x$syspfiles" != x ]; then
++    syspfiles=`echo ":$syspfiles:" | \
++      sed "s%:$HEADAS/syspfiles:%:%g" | sed "s%::*$%%"`
++    # if syspfiles is not empty after this pruning, leave
++    # locpfiles untouched because some other system may have set it;
++    # otherwise, prune locpfiles:
++    if [ "x$syspfiles" = x ]; then
++      if [ "x$locpfiles" != x ]; then
++        locpfiles=`echo ":$locpfiles:" | \
++          sed "s%:$HOME/pfiles:%:%g" | sed "s%::*$%%"`
++      fi
++    fi
++  fi
++
++  # reassemble PFILES:
++  if [ "x$syspfiles" = x ]; then
++    if [ "x$locpfiles" = x ]; then
++      PFILES=""
++    else
++      # remove any leading & trailing colons from locpfiles:
++      locpfiles=`echo $locpfiles | sed 's%^:%%' | sed 's%:$%%'`
++      PFILES="$locpfiles"
++    fi
++  else
++    # remove any leading & trailing colons from syspfiles:
++    syspfiles=`echo $syspfiles | sed 's%^:%%' | sed 's%:$%%'`
++    if [ "x$locpfiles" = x ]; then
++      PFILES=";$syspfiles"
++    else
++      PFILES="$locpfiles;$syspfiles"
++    fi
++  fi
++
++fi
++
++# prune extraneous leading & trailing colons:
++PATH=`echo $PATH | sed 's%^:%%' | sed 's%:$%%'`
++PERLLIB=`echo $PERLLIB | sed 's%^:%%' | sed 's%:$%%'`
++PERL5LIB=`echo $PERL5LIB | sed 's%^:%%' | sed 's%:$%%'`
++LD_LIBRARY_PATH=`echo $LD_LIBRARY_PATH | sed 's%^:%%' | sed 's%:$%%'`
++DYLD_LIBRARY_PATH=`echo $DYLD_LIBRARY_PATH | sed 's%^:%%' | sed 's%:$%%'`
++PYTHONPATH=`echo $PYTHONPATH | sed 's%^:%%' | sed 's%:$%%'`
++PFILES=`echo $PFILES | sed 's%^:%%' | sed 's%:$%%'`
++
++export PATH PERLLIB PERL5LIB PYTHONPATH LD_LIBRARY_PATH DYLD_LIBRARY_PATH PFILES
++
++#-------------------------------------------------------------------------------
++# list of variables to change
++#-------------------------------------------------------------------------------
++varlist_c="PATH PERLLIB PERL5LIB PYTHONPATH LD_LIBRARY_PATH DYLD_LIBRARY_PATH PFILES"
++
++#-------------------------------------------------------------------------------
++# list of variables to unset
++#-------------------------------------------------------------------------------
++varlist="HEADAS LHEASOFT FTOOLS"
++varlist="$varlist LHEAPERL PFCLOBBER"
++varlist="$varlist FTOOLSINPUT FTOOLSOUTPUT"
++varlist="$varlist LHEA_DATA LHEA_HELP EXT"
++varlist="$varlist PGPLOT_FONT PGPLOT_RGB PGPLOT_DIR POW_LIBRARY"
++varlist="$varlist XRDEFAULTS TCLRL_LIBDIR XANADU XANBIN"
++
++#-------------------------------------------------------------------------------
++# save values in output initialization shell scripts
++#-------------------------------------------------------------------------------
++# name of temporary config script
++HOST_NAME=`hostname`
++headas_deconfig="$HOME/headas-config-$HOST_NAME"
++
++# Bourne Shell version, write only for sh flavor initialization
++if [ $flavor = sh ]; then
++  rm -f "$headas_deconfig$$.sh"
++  touch "$headas_deconfig$$.sh"
++  for var in $varlist_c; do
++    eval "if [ \"x\$$var\" != x ]; then
++            echo \"\$var=\\\"\$$var\\\"; export \$var\" >> \"$headas_deconfig$$.sh\";
++          else \
++            echo unset \$var\" >> \"$headas_deconfig$$.sh\";
++          fi"
++  done
++  for var in $varlist; do
++    eval "if [ \"x\$$var\" != x ]; then
++            echo unset \$var\" >> \"$headas_deconfig$$.sh\";
++          fi"
++  done
++  echo "$headas_deconfig$$.sh"
++# C Shell version, write only for csh flavor initialization
++elif [ $flavor = csh ]; then
++  rm -f "$headas_deconfig$$.csh"
++  touch "$headas_deconfig$$.csh"
++  for var in $varlist_c; do
++    eval "if [ \"x\$$var\" != x ]; then
++            echo setenv \$var \\\"\$$var\\\" >> \"$headas_deconfig$$.csh\";
++          else \
++            echo unsetenv \$var >> \"$headas_deconfig$$.csh\";
++          fi"
++  done
++  for var in $varlist; do
++    eval "if [ \"x\$$var\" != x ]; then
++            echo unsetenv \$var >> \"$headas_deconfig$$.csh\";
++          fi"
++  done
++  echo "$headas_deconfig$$.csh"
++fi
++#-------------------------------------------------------------------------------
+\ No newline at end of file

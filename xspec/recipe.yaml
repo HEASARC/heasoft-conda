@@ -19,6 +19,7 @@ source:
     - ../heasoft/xspec.patch
     - ../heasoft/zlib_makefiles.patch
     - ../heasoft/python_makefiles.patch
+    - ../heasoft/heauninit.patch
     - if: osx
       then:
       - ../heasoft/configures.patch
