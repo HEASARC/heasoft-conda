@@ -42,6 +42,9 @@ if [ "$ostype" = "Darwin" ]; then
     mv $PREFIX/lib/libtk8.6.dylib $PREFIX/lib/libtk8.6.dylib.off
 fi
 
+mv headas-un* BUILD_DIR
+chmod +x BUILD_DIR/headas-unset
+
 cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.log.txt || false
 make 2>&1 | tee build.log.txt || false
@@ -90,4 +93,5 @@ cp \$CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/headas-uninit.*sh \$CONDA_PREFIX/etc/con
 EOF
 cat <<EOF >$PREFIX/bin/.xspec-pre-unlink.sh
 rm \$CONDA_PREFIX/etc/conda/activate.d/heainit.*sh > /dev/null 2>&1
+rm \$CONDA_PREFIX/etc/conda/deactivate.d/headas-uninit.*sh > /dev/null 2>&1
 EOF

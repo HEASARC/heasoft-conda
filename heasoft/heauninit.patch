@@ -205,12 +205,12 @@
 +    eval "if [ \"x\$$var\" != x ]; then
 +            echo \"\$var=\\\"\$$var\\\"; export \$var\" >> \"$headas_deconfig$$.sh\";
 +          else \
-+            echo unset \$var\" >> \"$headas_deconfig$$.sh\";
++            echo \"unset \$var\" >> \"$headas_deconfig$$.sh\";
 +          fi"
 +  done
 +  for var in $varlist; do
 +    eval "if [ \"x\$$var\" != x ]; then
-+            echo unset \$var\" >> \"$headas_deconfig$$.sh\";
++            echo \"unset \$var\" >> \"$headas_deconfig$$.sh\";
 +          fi"
 +  done
 +  echo "$headas_deconfig$$.sh"

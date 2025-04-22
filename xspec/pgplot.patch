@@ -1,0 +1,11 @@
+--- tcltk/pgplot/makemake
++++ tcltk/pgplot/makemake
+@@ -985,7 +985,7 @@
+ 	cp $(TKDIR)/tkpgplot.h tkpgplot.h
+ 
+ tkpgplot.o: $(DRVDIR)/pgxwin.h tkpgplot.h $(TKDIR)/tkpgplot.c
+-	$(CCOMPL) -c $(CFLAGC) -I$(DRVDIR) -I$(TKDIR) $(TK_INCL) $(XINCL) $(TKDIR)/tkpgplot.c
++	$(CCOMPL) -c $(CFLAGC) -I$(DRVDIR) $(XINCL) -I$(TKDIR) $(TK_INCL) $(TKDIR)/tkpgplot.c
+ 
+ #-----------------------------------------------------------------------
+ # Target "libpowpgplot.a" contains the POW widget driver.

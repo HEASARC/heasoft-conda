@@ -24,6 +24,7 @@ source:
       then:
       - ../heasoft/configures.patch
       - ../heasoft/wcslib_tclrl.patch
+      - pgplot.patch
 
 build:
   number: 1
