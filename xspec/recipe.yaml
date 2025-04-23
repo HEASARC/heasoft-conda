@@ -19,13 +19,15 @@ source:
     - ../heasoft/xspec.patch
     - ../heasoft/zlib_makefiles.patch
     - ../heasoft/python_makefiles.patch
+    - ../heasoft/heauninit.patch
     - if: osx
       then:
       - ../heasoft/configures.patch
       - ../heasoft/wcslib_tclrl.patch
+      - pgplot.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   host:
