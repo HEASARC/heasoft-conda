@@ -81,7 +81,7 @@ def pack_files(package, version, dev, config, dryrun):
         if dev:
             rootdir = pconfig.get(
                 'dev-root',
-                '/software/lheasoft/irby/release/heasoft'
+                '/software/lheasoft/conda'
             )
         else:
             rootdir = pconfig.get(

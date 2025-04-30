@@ -3,7 +3,7 @@
     "packages": {
         "heasoft": {
             "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
-            "dev-root": "/software/lheasoft/irby/release/heasoft-{version}",
+            "dev-root": "/software/lheasoft/conda",
             "include": ["*"],
             "exclude": [
                 "x86_64-pc-linux-gnu-*",
@@ -19,14 +19,14 @@
         },
         "xspec-data": {
             "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
-            "dev-root": "/software/lheasoft/irby/release/heasoft-{version}",
+            "dev-root": "/software/lheasoft/conda",
             "include": [
                 "Xspec/src/spectral/modelData"
             ]
         },
         "xstar-data": {
             "root": "/FTP/software/lheasoft/lheasoft{version}/heasoft-{version}",
-            "dev-root": "/software/lheasoft/irby/release/heasoft-{version}",
+            "dev-root": "/software/lheasoft/conda",
             "include": [
                 "ftools/xstar/data/"
             ]
