@@ -2,8 +2,8 @@
 
 context:
   name: xspec
-  version: 12.15.0
-  hea_version: 6.35
+  version: 12.15.0b
+  hea_version: 6.35.1b
 
 package:
   name: ${{ name|lower }}
