@@ -110,9 +110,9 @@ def pack_files(package, version, dev, config, dryrun):
 
         cwd = os.getcwd()
         basedir = os.path.basename(rootdir)
-        tarfile = f'{cwd}/{package}-{version}.tar'
+        tarfile = f'{cwd}/{package}-{version}.tar.gz'
         cmd = (
-            f'tar -cvf {tarfile} ' +
+            f'tar -czvf {tarfile} ' +
             (' '.join([f'--exclude="{basedir}/{ex}"' for ex in exclude])) +
             ' ' +
             (' '.join([f'{basedir}/{inc}' for inc in include]))
