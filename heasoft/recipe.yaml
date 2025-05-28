@@ -2,7 +2,7 @@
 
 context:
   name: heasoft
-  version: 6.35.1
+  version: 6.35.2
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  sha256: ec9e5b69906d13e2863d9711ce96be018cb7220d73b77cbc2c945491a29428f4
+  sha256: 082f6e00027f16e0e04324049fb10c6b1b2e483d9f7b6ff4989fa1edef9673ce
   patches:
     - gsl_configure.patch
     - tcltk_Makefile.patch
@@ -25,7 +25,7 @@ source:
       - wcslib_tclrl.patch
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   host:
