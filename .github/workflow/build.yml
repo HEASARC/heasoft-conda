@@ -1,9 +1,10 @@
 name: Build Conda Package
 
 on:
-  push:
-    branches-ignore: ['releases/**']
   workflow_dispatch:
+  push:
+    branches: ['main', 'gh']
+  
 
 jobs:
   build:
@@ -14,9 +15,9 @@ jobs:
         include:
           - os: ubuntu-latest
             platform: linux-64
-          - os: macos-14
+          - os: macos-latest
             platform: osx-arm64
-          - os: macos-13
+          - os: macos-latest
             platform: osx-64
 
     steps:
