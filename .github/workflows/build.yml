@@ -2,11 +2,11 @@ name: Build Conda Package
 
 on:
   workflow_dispatch:
-  inputs:
-      package:
-        description: 'Package to build'
-        required: true
-        type: string
+    inputs:
+        package:
+          description: 'Package to build: heasoft, xspec, xspec-data etc'
+          required: true
+          type: string
 
 
 jobs:
