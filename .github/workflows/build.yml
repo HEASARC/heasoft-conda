@@ -1,0 +1,52 @@
+name: Build Conda Package
+
+on:
+  workflow_dispatch:
+  inputs:
+      package:
+        description: 'Package to build'
+        required: true
+        type: string
+
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    continue-on-error: true 
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux-64
+          - os: macos-latest
+            platform: osx-arm64
+          - os: macos-latest
+            platform: osx-64
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-name: hconda
+          create-args: >-
+            python=3.12
+            rattler-build
+      - run: |
+          package=${{ inputs.package }}
+          echo "Building package $package"
+          if ! test -d $package; then
+            echo "package $package does not exist"
+            exit 1
+          fi 
+          cd $package
+          rattler-build build --no-include-recipe --output-dir ../output
+        shell: micromamba-shell {0}
+
+
+      - name: Upload conda package
+        uses: actions/upload-artifact@v4
+        with:
+          name: conda-package-${{ inputs.package }}-${{ matrix.platform }}
+          path: output/
