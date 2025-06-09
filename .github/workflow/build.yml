@@ -2,9 +2,8 @@ name: Build Conda Package
 
 on:
   push:
-    branches:
-      - main
-      - gh
+    branches-ignore: ['releases/**']
+  workflow_dispatch:
 
 jobs:
   build:
