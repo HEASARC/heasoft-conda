@@ -22,6 +22,14 @@ jobs:
             platform: osx-arm64
           - os: macos-latest
             platform: osx-64
+    
+    - name: Skip noarch packages
+        if: |
+          (matrix.platform == 'osx-arm64' || matrix.platform == 'osx-64') &&
+          (inputs.package == 'xspec-data' || inputs.package == 'xstar-data' )
+        run: |
+          echo "Skipping macOS job for noarch packages: ${{ inputs.package }}"
+          exit 0
 
     steps:
       - name: Skip noarch packages
