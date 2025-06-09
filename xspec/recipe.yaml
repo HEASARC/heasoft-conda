@@ -2,8 +2,8 @@
 
 context:
   name: xspec
-  version: 12.15.0b
-  hea_version: 6.35.1b
+  version: 12.15.0d
+  hea_version: 6.35.2
 
 package:
   name: ${{ name|lower }}
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/heasoft-${{ hea_version }}.tar.gz
-  sha256: beaee8e4292b249fc29722fbc71a7e4d34d25b49cb228538eb5b672c08b21132
+  sha256: 6d6cf2353617c84220a5014898cd632552c6512785fa791aebcc8d1121163156
   patches:
     - ../heasoft/gsl_configure.patch
     - ../heasoft/tcltk_Makefile.patch

@@ -3,14 +3,14 @@
 
 context:
   name: xstar-data
-  version: 6.35
+  version: 6.35.2
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 source:
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  sha256: 3f26cc85998cffd9ced8a77591680324b027a6a8a5aae516cca0846b37efb6c9
+  sha256: 2d5519a1a6e96eb0a910fa6d29cededa866a2f624c69cb9a0aa550c23dcc6af3
 build:
   number: 0
   noarch: generic
