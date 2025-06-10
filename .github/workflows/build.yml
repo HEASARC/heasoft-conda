@@ -53,7 +53,7 @@ jobs:
           if [ $package == "heasoft" ]; then
             echo "doing heasoft-tests too"
             cd ../output/src_cache
-            root=`find -type d -name 'heasoft-*'`
+            root=`ls -d heasoft-* | grep -v tar`
             ln -s ${root} ${root/heasoft/heasoft-tests}
             ln -s ${root}.tar.gz ${root/heasoft/heasoft-tests}.tar.gz
             cd ../../heasoft-tests
