@@ -49,7 +49,7 @@ jobs:
             exit 1
           fi 
           cd $package
-          rattler-build build --no-include-recipe --output-dir ../output
+          rattler-build build --no-include-recipe --target-platform ${{  matrix.platform }} --output-dir ../output
           if [ $package == "heasoft" ]; then
             echo "doing heasoft-tests too"
             cd ../output/src_cache
@@ -57,7 +57,7 @@ jobs:
             ln -s ${root} ${root/heasoft/heasoft-tests}
             ln -s ${root}.tar.gz ${root/heasoft/heasoft-tests}.tar.gz
             cd ../../heasoft-tests
-            rattler-build build --no-include-recipe --output-dir ../output
+            rattler-build build --no-include-recipe --target-platform ${{  matrix.platform }} --output-dir ../output
           fi
         shell: micromamba-shell {0}
 
