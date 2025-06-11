@@ -69,7 +69,7 @@ jobs:
             rattler-build build --no-include-recipe --target-platform ${{ matrix.platform }} --output-dir ../output
           fi
           cd ..
-          rm -rf output/src_cache
+          rm -rf output/src_cache output/bld
         shell: micromamba-shell {0}
 
 

@@ -46,8 +46,6 @@ chmod +x BUILD_DIR/headas-unset
 
 cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.log.txt || false
-# fix paths with :, that cause osx to fail
-rm -rf $PREFIX/man
 exit 0
 make 2>&1 | tee build.log.txt || false
 make install 2>&1 | tee install.log.txt || false
