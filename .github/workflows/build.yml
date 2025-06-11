@@ -35,14 +35,6 @@ jobs:
             echo "do_build=true" >> $GITHUB_OUTPUT
           fi
 
-          # temporary; to build osx-64 only
-          if [ "${{ matrix.platform }}" == "osx-arm64" ] ||  [ "${{ matrix.platform }}" == "linux-64" ]; then
-            echo "do_build=false" >> $GITHUB_OUTPUT
-          else
-            echo "do_build=true" >> $GITHUB_OUTPUT
-          fi
-          exit 0
-
       - name: Checkout repository
         if: steps.check_skip.outputs.do_build == 'true'
         uses: actions/checkout@v4
