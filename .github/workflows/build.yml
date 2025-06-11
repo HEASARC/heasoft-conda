@@ -24,24 +24,31 @@ jobs:
             platform: osx-64
 
     steps:
-      - name: Skip noarch packages
-        if: |
-          (matrix.platform == 'osx-arm64' || matrix.platform == 'osx-64') &&
-          (inputs.package == 'xspec-data' || inputs.package == 'xstar-data' )
+      - name: Skip noarch packages?
+        id: check_skip
         run: |
-          echo "Skipping macOS job for noarch packages: ${{ inputs.package }}"
+          if [ ( ${{ matrix.platform }} == "osx-arm64" ||  ${{ matrix.platform }} == "osx-64") && 
+               ( ${{ inputs.package }} == "xspec-data" || ${{ inputs.package }} == "xstar-data" )]; then
+            echo "Skipping macOS job for noarch packages: ${{ inputs.package }}"
+            echo "do_build=false" >> $GITHUB_OUTPUT
+          else
+            echo "do_build=true" >> $GITHUB_OUTPUT
+          fi
           exit 0
 
       - name: Checkout repository
+        if: steps.check_skip.outputs.do_build == 'true'
         uses: actions/checkout@v4
 
-      - uses: mamba-org/setup-micromamba@v2
+      - name: build package
+        uses: mamba-org/setup-micromamba@v2
+        if: steps.check_skip.outputs.do_build == 'true'
         with:
           environment-name: hconda
           create-args: >-
             python=3.12
             rattler-build
-      - run: |
+        run: |
           package=${{ inputs.package }}
           echo "Building package $package"
           if ! test -d $package; then
@@ -64,6 +71,7 @@ jobs:
 
       - name: Upload conda package
         uses: actions/upload-artifact@v4
+        if: steps.check_skip.outputs.do_build == 'true'
         with:
           name: conda-package-${{ inputs.package }}-${{ matrix.platform }}
           path: output/
