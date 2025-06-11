@@ -27,8 +27,8 @@ jobs:
       - name: Skip noarch packages?
         id: check_skip
         run: |
-          if [ ( ${{ matrix.platform }} == "osx-arm64" ||  ${{ matrix.platform }} == "osx-64") && 
-               ( ${{ inputs.package }} == "xspec-data" || ${{ inputs.package }} == "xstar-data" )]; then
+          if [ ( "${{ matrix.platform }}" == "osx-arm64" ||  "${{ matrix.platform }}" == "osx-64") && 
+               ( "${{ inputs.package }}" == "xspec-data" || "${{ inputs.package }}" == "xstar-data" )]; then
             echo "Skipping macOS job for noarch packages: ${{ inputs.package }}"
             echo "do_build=false" >> $GITHUB_OUTPUT
           else
@@ -36,7 +36,7 @@ jobs:
           fi
 
           # temporary; to build osx-64 only
-          if [ ( ${{ matrix.platform }} == "osx-arm64" ||  ${{ matrix.platform }} == "linux-64") ]; then
+          if [ ( "${{ matrix.platform }}" == "osx-arm64" ||  "${{ matrix.platform }}" == "linux-64") ]; then
             echo "do_build=false" >> $GITHUB_OUTPUT
           else
             echo "do_build=true" >> $GITHUB_OUTPUT
