@@ -40,7 +40,7 @@ jobs:
         if: steps.check_skip.outputs.do_build == 'true'
         uses: actions/checkout@v4
 
-      - name: build package
+      - name: prepare mamba
         uses: mamba-org/setup-micromamba@v2
         if: steps.check_skip.outputs.do_build == 'true'
         with:
@@ -48,6 +48,9 @@ jobs:
           create-args: >-
             python=3.12
             rattler-build
+      
+      - name: build packages
+        if: steps.check_skip.outputs.do_build == 'true'
         run: |
           package=${{ inputs.package }}
           echo "Building package $package"
