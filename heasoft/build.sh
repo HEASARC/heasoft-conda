@@ -50,6 +50,8 @@ exit 0
 make 2>&1 | tee build.log.txt || false
 make install 2>&1 | tee install.log.txt || false
 rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
+# fix paths with :, that cause osx to fail
+find $PREFIX/man -name '*::*' -delete
 
 # for xspec local models
 cp ../Xspec/BUILD_DIR/hmakerc $PREFIX/$HEA_SUBDIR/bin/
