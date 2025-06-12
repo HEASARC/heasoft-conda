@@ -12,29 +12,27 @@ source:
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
   sha256: 6d6cf2353617c84220a5014898cd632552c6512785fa791aebcc8d1121163156
   patches:
+    - ../heasoft/gsl_configure.patch
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/pgplot_makefiles.patch
     - ../heasoft/xspec.patch
     - ../heasoft/zlib_makefiles.patch
     - ../heasoft/python_makefiles.patch
+    - ../heasoft/heauninit.patch
     - if: osx
       then:
-        - ../heasoft/configures.patch
-        - ../heasoft/wcslib_tclrl.patch
+      - ../heasoft/configures.patch
+      - ../heasoft/wcslib_tclrl.patch
 
 build:
   number: 0
 
 requirements:
-  build:
+  host:
     - ${{ compiler('cxx') }}
     - ${{ compiler('c') }}
     - ${{ compiler('fortran') }}
     - pkg-config
-    - if: linux
-      then:
-        - patchelf
-  host:
     - heasoft = ${{ version }}
   run:
     - heasoft = ${{ version }}

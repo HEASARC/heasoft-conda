@@ -41,6 +41,9 @@ if [ "$ostype" = "Darwin" ]; then
     mv $PREFIX/lib/libtk8.6.dylib $PREFIX/lib/libtk8.6.dylib.off
 fi
 
+mv headas-un* BUILD_DIR
+chmod +x BUILD_DIR/headas-unset
+
 cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.log.txt || false
 #make 2>&1 | tee build.log.txt || false
