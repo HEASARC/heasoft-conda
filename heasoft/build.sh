@@ -46,7 +46,6 @@ chmod +x BUILD_DIR/headas-unset
 
 cd BUILD_DIR
 ./configure "${configure_args[@]}" 2>&1 | tee config.log.txt || false
-exit 0
 make 2>&1 | tee build.log.txt || false
 make install 2>&1 | tee install.log.txt || false
 rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
