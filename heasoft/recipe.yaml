@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
-  sha256: 0c72451df22dd53158fab4dd9a614d2967a1c2eca907654d11e3e316ddf3dea5
+  sha256: 5510a908886811b1c0eaf22efc261424ff7cb5065adf2658c22474f00c6df9bd
   patches:
     - gsl_configure.patch
     - tcltk_Makefile.patch
