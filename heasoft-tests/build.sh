@@ -37,8 +37,11 @@ configure_args=(
     --x-libraries=$PREFIX/lib
 )
 
+mask_files="libtk8.6.dylib libreadline.8.dylib libpng16.16.dylib libtcl8.6.dylib"
 if [ "$ostype" = "Darwin" ]; then
-    mv $PREFIX/lib/libtk8.6.dylib $PREFIX/lib/libtk8.6.dylib.off
+    for file in $mask_files; do
+        mv $PREFIX/lib/$file $PREFIX/lib/${file}.off
+    done
 fi
 
 mv headas-un* BUILD_DIR
@@ -52,3 +55,9 @@ source $HEADAS/headas-init.sh
 make test || false 
 make install-test || false
 rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
+
+if [ "$ostype" = "Darwin" ]; then
+    for file in $mask_files; do
+        mv $PREFIX/lib/${file}.off $PREFIX/lib/${file}
+    done
+fi

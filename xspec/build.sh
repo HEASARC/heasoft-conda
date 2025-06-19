@@ -38,8 +38,11 @@ configure_args=(
     --with-components=Xspec
 )
 
+mask_files="libtk8.6.dylib libreadline.8.dylib libpng16.16.dylib libtcl8.6.dylib"
 if [ "$ostype" = "Darwin" ]; then
-    mv $PREFIX/lib/libtk8.6.dylib $PREFIX/lib/libtk8.6.dylib.off
+    for file in $mask_files; do
+        mv $PREFIX/lib/$file $PREFIX/lib/${file}.off
+    done
 fi
 
 mv headas-un* BUILD_DIR
@@ -56,7 +59,9 @@ cp ../Xspec/BUILD_DIR/hmakerc $PREFIX/$HEA_SUBDIR/bin/
 cp ../Xspec/BUILD_DIR/Makefile-std $PREFIX/$HEA_SUBDIR/bin/
 
 if [ "$ostype" = "Darwin" ]; then
-    mv $PREFIX/lib/libtk8.6.dylib.off $PREFIX/lib/libtk8.6.dylib
+    for file in $mask_files; do
+        mv $PREFIX/lib/${file}.off $PREFIX/lib/${file}
+    done
 fi
 
 # we need all libraries to be writable so conda-build can
