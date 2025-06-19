@@ -38,7 +38,7 @@ configure_args=(
     --with-components=Xspec
 )
 
-mask_files="libtk8.6.dylib libreadline.8.dylib libpng16.16.dylib libtcl8.6.dylib"
+mask_files="libtk8.6.dylib libreadline.8.dylib libtcl8.6.dylib"
 if [ "$ostype" = "Darwin" ]; then
     for file in $mask_files; do
         mv $PREFIX/lib/$file $PREFIX/lib/${file}.off
