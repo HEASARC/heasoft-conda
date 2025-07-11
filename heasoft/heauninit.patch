@@ -48,7 +48,7 @@
 +else
 +  echo "headas-uninit.sh: ERROR -- cannot execute $HEADAS/BUILD_DIR/headas-unset"
 +fi
---- BUILD_DIR/headas-unset
+--- /dev/null
 +++ BUILD_DIR/headas-unset
 @@ -0,0 +1,182 @@
 +#! /bin/sh
