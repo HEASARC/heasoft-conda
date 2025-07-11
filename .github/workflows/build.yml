@@ -12,7 +12,6 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    continue-on-error: true 
     strategy:
       matrix:
         include:
@@ -51,8 +50,6 @@ jobs:
       - name: build packages
         if: steps.check_skip.outputs.do_build == 'true'
         run: |
-          set -e
-          set -o pipefail
           package=${{ inputs.package }}
           echo "Building package $package"
           if ! test -d $package; then
