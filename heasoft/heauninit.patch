@@ -1,4 +1,4 @@
---- BUILD_DIR/headas-uninit.csh	
+--- /dev/null
 +++ BUILD_DIR/headas-uninit.csh	
 @@ -0,0 +1,22 @@
 +# Filename: headas-uninit.csh
@@ -23,7 +23,7 @@
 +else
 +  echo "headas-uninit.csh: ERROR -- cannot execute $HEADAS/BUILD_DIR/headas-unset"
 +endif
---- BUILD_DIR/headas-uninit.sh
+--- /dev/null
 +++ BUILD_DIR/headas-uninit.sh
 @@ -0,0 +1,22 @@
 +#  Filename: headas-uninit.sh
