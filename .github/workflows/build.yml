@@ -51,6 +51,8 @@ jobs:
       - name: build packages
         if: steps.check_skip.outputs.do_build == 'true'
         run: |
+          set -e
+          set -o pipefail
           package=${{ inputs.package }}
           echo "Building package $package"
           if ! test -d $package; then
@@ -70,7 +72,7 @@ jobs:
           fi
           cd ..
           rm -rf output/src_cache output/bld
-        shell: micromamba-shell -leo pipefail {0}
+        shell: micromamba-shell {0}
 
 
       - name: Upload conda package
