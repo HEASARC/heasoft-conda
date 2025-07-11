@@ -70,7 +70,7 @@ jobs:
           fi
           cd ..
           rm -rf output/src_cache output/bld
-        shell: micromamba-shell {0}
+        shell: micromamba-shell -leo pipefail {0}
 
 
       - name: Upload conda package
