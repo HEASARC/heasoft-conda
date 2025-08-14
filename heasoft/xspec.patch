@@ -1,6 +1,6 @@
 --- Xspec/BUILD_DIR/configure
 +++ Xspec/BUILD_DIR/configure
-@@ -5760,7 +5760,8 @@
+@@ -5866,7 +5866,8 @@
  printf "%s\n" "$ac_cv_cxx_std_count_defect" >&6; }
    if test "$ac_cv_cxx_std_count_defect" = yes; then
  

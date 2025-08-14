@@ -35,6 +35,11 @@ configure_args=(
     --enable-collapse=all
     --x-includes=$PREFIX/include
     --x-libraries=$PREFIX/lib
+    --with-tcl=$PREFIX/lib
+    --with-tk=$PREFIX/lib
+    --with-fgsl=$PREFIX
+    --with-gsl=$PREFIX
+    --with-fftw=$PREFIX
 )
 
 mask_files="libtk8.6.dylib libtcl8.6.dylib"
@@ -44,13 +49,13 @@ if [ "$ostype" = "Darwin" ]; then
     done
 fi
 
-mv headas-un* BUILD_DIR
-chmod +x BUILD_DIR/headas-unset
+#mv headas-un* BUILD_DIR
+#chmod +x BUILD_DIR/headas-unset
 
 cd BUILD_DIR
-./configure "${configure_args[@]}" 2>&1 | tee config.log.txt || false
-make 2>&1 | tee build.log.txt || false
-make install 2>&1 | tee install.log.txt || false
+./configure "${configure_args[@]}" 2>&1 | tee config.txt || false
+make all 2>&1 | tee build.txt || false
+make install 2>&1 | tee install.txt || false
 rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
 
 # for xspec local models

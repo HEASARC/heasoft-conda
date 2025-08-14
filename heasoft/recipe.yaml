@@ -2,7 +2,7 @@
 
 context:
   name: heasoft
-  version: 6.35.2
+  version: 6.36
 
 package:
   name: ${{ name|lower }}
@@ -12,13 +12,14 @@ source:
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/source/${{ name }}-${{ version }}.tar.gz
   sha256: b3db0ce965a37336428e99e80cdd0eeef0d904a95ec2ab377e26673b4976e61f
   patches:
-    - gsl_configure.patch
     - tcltk_Makefile.patch
     - pgplot_makefiles.patch
     - xspec.patch
     - zlib_makefiles.patch
     - python_makefiles.patch
-    - heauninit.patch
+    - itk_configure.patch
+    - iwidgets_configure.patch
+    - tix_configure.patch
     - if: osx
       then:
       - configures.patch
@@ -42,7 +43,9 @@ requirements:
     - xorg-libxt
     - xorg-xorgproto
     - xorg-libxcursor
+    - fftw
     - fgsl
+    - gsl
     - perl
     - pip
     - setuptools
@@ -60,7 +63,9 @@ requirements:
     - xorg-libxt
     - xorg-libxcursor
     - xorg-xorgproto
+    - fftw
     - fgsl
+    - gsl
     - perl
     - numpy
     - scipy
