@@ -23,7 +23,6 @@ source:
     - if: osx
       then:
       - configures.patch
-      - wcslib_tclrl.patch
 
 build:
   number: 0

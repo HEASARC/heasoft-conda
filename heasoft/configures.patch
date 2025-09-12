@@ -1,1032 +1,300 @@
 diff --git a/Xspec/BUILD_DIR/configure b/Xspec/BUILD_DIR/configure
-index dffd5b5c68..dd2fd29642 100755
+index a47bc30abd..0be3c99b22 100755
 --- a/Xspec/BUILD_DIR/configure
 +++ b/Xspec/BUILD_DIR/configure
-@@ -8907,15 +8907,15 @@ case $host in
+@@ -8945,8 +8945,8 @@ case $host in
      LDFLAGS_C_PY="-Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
      LDFLAGS_CXX_PY="-Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/Xspec/BUILD_DIR/configure.in b/Xspec/BUILD_DIR/configure.in
-index 8183d8eca2..cd16684764 100644
---- a/Xspec/BUILD_DIR/configure.in
-+++ b/Xspec/BUILD_DIR/configure.in
-@@ -1753,15 +1753,15 @@ case $host in
-     LDFLAGS_C_PY="-Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_PY="-Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$TCL_DIR"
 diff --git a/attitude/BUILD_DIR/configure b/attitude/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/attitude/BUILD_DIR/configure
 +++ b/attitude/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/attitude/BUILD_DIR/configure.in b/attitude/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/attitude/BUILD_DIR/configure.in
-+++ b/attitude/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/burstcube/BUILD_DIR/configure b/burstcube/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/burstcube/BUILD_DIR/configure
 +++ b/burstcube/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/burstcube/BUILD_DIR/configure.in b/burstcube/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/burstcube/BUILD_DIR/configure.in
-+++ b/burstcube/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/calet/BUILD_DIR/configure b/calet/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/calet/BUILD_DIR/configure
 +++ b/calet/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/calet/BUILD_DIR/configure.in b/calet/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/calet/BUILD_DIR/configure.in
-+++ b/calet/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/demo/BUILD_DIR/configure b/demo/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/demo/BUILD_DIR/configure
 +++ b/demo/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/demo/BUILD_DIR/configure.in b/demo/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/demo/BUILD_DIR/configure.in
-+++ b/demo/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/ftools/BUILD_DIR/configure b/ftools/BUILD_DIR/configure
-index e07604940d..cea10537f2 100755
+index 15dab196a2..0ebc582afd 100755
 --- a/ftools/BUILD_DIR/configure
 +++ b/ftools/BUILD_DIR/configure
-@@ -8776,8 +8776,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -8795,8 +8795,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$TCL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$TCL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -8788,8 +8788,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/ftools/BUILD_DIR/configure.in b/ftools/BUILD_DIR/configure.in
-index a984e9f767..9a41d29142 100644
---- a/ftools/BUILD_DIR/configure.in
-+++ b/ftools/BUILD_DIR/configure.in
-@@ -1622,8 +1622,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1634,8 +1634,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/heacore/BUILD_DIR/configure b/heacore/BUILD_DIR/configure
-index d611625c5b..86fa3718d4 100755
+index 0a321563cc..45a1fc30d8 100755
 --- a/heacore/BUILD_DIR/configure
 +++ b/heacore/BUILD_DIR/configure
-@@ -8637,15 +8637,15 @@ case $host in
+@@ -8219,8 +8219,8 @@ case $host in
      LDFLAGS_C_PY="-Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
      LDFLAGS_CXX_PY="-Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/heacore/BUILD_DIR/configure.in b/heacore/BUILD_DIR/configure.in
-index 958c18c5ff..6a223d991d 100644
---- a/heacore/BUILD_DIR/configure.in
-+++ b/heacore/BUILD_DIR/configure.in
-@@ -1811,15 +1811,15 @@ case $host in
-     LDFLAGS_C_PY="-Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_PY="-Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/heagen/BUILD_DIR/configure b/heagen/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/heagen/BUILD_DIR/configure
 +++ b/heagen/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/heagen/BUILD_DIR/configure.in b/heagen/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/heagen/BUILD_DIR/configure.in
-+++ b/heagen/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/heasim/BUILD_DIR/configure b/heasim/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/heasim/BUILD_DIR/configure
 +++ b/heasim/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/heasim/BUILD_DIR/configure.in b/heasim/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/heasim/BUILD_DIR/configure.in
-+++ b/heasim/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/heasptools/BUILD_DIR/configure b/heasptools/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/heasptools/BUILD_DIR/configure
 +++ b/heasptools/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/heasptools/BUILD_DIR/configure.in b/heasptools/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/heasptools/BUILD_DIR/configure.in
-+++ b/heasptools/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/heatools/BUILD_DIR/configure b/heatools/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/heatools/BUILD_DIR/configure
 +++ b/heatools/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/heatools/BUILD_DIR/configure.in b/heatools/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/heatools/BUILD_DIR/configure.in
-+++ b/heatools/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/hitomixrism/BUILD_DIR/configure b/hitomixrism/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/hitomixrism/BUILD_DIR/configure
 +++ b/hitomixrism/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/hitomixrism/BUILD_DIR/configure.in b/hitomixrism/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/hitomixrism/BUILD_DIR/configure.in
-+++ b/hitomixrism/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/integral/BUILD_DIR/configure b/integral/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/integral/BUILD_DIR/configure
 +++ b/integral/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/integral/BUILD_DIR/configure.in b/integral/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/integral/BUILD_DIR/configure.in
-+++ b/integral/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/ixpe/BUILD_DIR/configure b/ixpe/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/ixpe/BUILD_DIR/configure
 +++ b/ixpe/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/ixpe/BUILD_DIR/configure.in b/ixpe/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/ixpe/BUILD_DIR/configure.in
-+++ b/ixpe/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/maxi/BUILD_DIR/configure b/maxi/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/maxi/BUILD_DIR/configure
 +++ b/maxi/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/maxi/BUILD_DIR/configure.in b/maxi/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/maxi/BUILD_DIR/configure.in
-+++ b/maxi/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/nicer/BUILD_DIR/configure b/nicer/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/nicer/BUILD_DIR/configure
 +++ b/nicer/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/nicer/BUILD_DIR/configure.in b/nicer/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/nicer/BUILD_DIR/configure.in
-+++ b/nicer/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/nustar/BUILD_DIR/configure b/nustar/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/nustar/BUILD_DIR/configure
 +++ b/nustar/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/nustar/BUILD_DIR/configure.in b/nustar/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/nustar/BUILD_DIR/configure.in
-+++ b/nustar/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/suzaku/BUILD_DIR/configure b/suzaku/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/suzaku/BUILD_DIR/configure
 +++ b/suzaku/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/suzaku/BUILD_DIR/configure.in b/suzaku/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/suzaku/BUILD_DIR/configure.in
-+++ b/suzaku/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/swift/BUILD_DIR/configure b/swift/BUILD_DIR/configure
-index 14f08d5403..00bad11a90 100755
+index 9efb35cb2b..babc942d0a 100755
 --- a/swift/BUILD_DIR/configure
 +++ b/swift/BUILD_DIR/configure
-@@ -7954,8 +7954,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+@@ -7973,8 +7973,8 @@ case $host in
+     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
+     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath,\$GSL_DIR -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -7966,8 +7966,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/swift/BUILD_DIR/configure.in b/swift/BUILD_DIR/configure.in
-index 81e3a04137..5ccd972249 100644
---- a/swift/BUILD_DIR/configure.in
-+++ b/swift/BUILD_DIR/configure.in
-@@ -1591,8 +1591,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1603,8 +1603,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
 diff --git a/tcltk/BUILD_DIR/configure b/tcltk/BUILD_DIR/configure
-index 0b2fc20baf..f3a38468bc 100755
+index 0b99943326..d3e02c5a00 100755
 --- a/tcltk/BUILD_DIR/configure
 +++ b/tcltk/BUILD_DIR/configure
-@@ -8345,8 +8345,8 @@ case $host in
+@@ -8396,8 +8396,8 @@ case $host in
      LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
      ;;
 -  *darwin[89]*|*darwin1[01234]*)
 -    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
++# *darwin[89]*|*darwin1[01234]*)
++#   ;;
    *darwin*)
      # LDFLAGS for Mac executables:
      if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -8357,8 +8357,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"
-diff --git a/tcltk/BUILD_DIR/configure.in b/tcltk/BUILD_DIR/configure.in
-index 280595065e..e9efac9df1 100644
---- a/tcltk/BUILD_DIR/configure.in
-+++ b/tcltk/BUILD_DIR/configure.in
-@@ -1368,8 +1368,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib -Wl,-rpath-link,\$HC_BLD_EXEC_PFX/lib"
-     ;;
--  *darwin[89]*|*darwin1[01234]*)
--    ;;
-+  #*darwin[89]*|*darwin1[01234]*)
-+  #  ;;
-   *darwin*)
-     # LDFLAGS for Mac executables:
-     if test `echo $F77LIBS4C | grep -c /opt/local/lib/libgcc` -ne 0; then
-@@ -1380,8 +1380,8 @@ case $host in
-     LDFLAGS_C_BIN="$LDFLAGS_C_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     LDFLAGS_CXX_BIN="$LDFLAGS_CXX_BIN -headerpad_max_install_names -Wl,-rpath,@executable_path/../lib -Wl,-rpath,\$HD_TOP_EXEC_PFX/lib"
-     # LDFLAGS for Mac libraries:
--    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
--    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name @rpath/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_C="$LDFLAGS_C -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-+    LDFLAGS_CXX="$LDFLAGS_CXX -undefined dynamic_lookup -headerpad_max_install_names -install_name \$HD_TOP_EXEC_PFX/lib/\\\${HD_SHLIBRARY}"
-     if test "x$APPLEXCODE" = xyes; then
-       LDFLAGS_C="$LDFLAGS_C -flat_namespace"
-       LDFLAGS_CXX="$LDFLAGS_CXX -flat_namespace"

@@ -16,9 +16,9 @@ if [ "$ostype" = "Darwin" ]; then
         -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-xorgproto}"' {} \;
 
     # remove extra @rpath
-    for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
-        sed -i '' 's|-Wl,-rpath,\\$HD_TOP_EXEC_PFX/lib||g' $conf
-    done
+    #for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
+    #    sed -i '' 's|-Wl,-rpath,\\$HD_TOP_EXEC_PFX/lib||g' $conf
+    #done
 
     # fix python library in mac x86_64
     hware=$(uname -m)
@@ -35,22 +35,27 @@ configure_args=(
     --enable-collapse=all
     --x-includes=$PREFIX/include
     --x-libraries=$PREFIX/lib
+    --with-tcl=$PREFIX/lib
+    --with-tk=$PREFIX/lib
+    --with-fgsl=$PREFIX
+    --with-gsl=$PREFIX
+    --with-fftw=$PREFIX
 )
 
-mask_files="libtk8.6.dylib libtcl8.6.dylib"
-if [ "$ostype" = "Darwin" ]; then
-    for file in $mask_files; do
-        mv $PREFIX/lib/$file $PREFIX/lib/${file}.off
-    done
-fi
+#mask_files="libtk8.6.dylib libtcl8.6.dylib"
+#if [ "$ostype" = "Darwin" ]; then
+#    for file in $mask_files; do
+#        mv $PREFIX/lib/$file $PREFIX/lib/${file}.off
+#    done
+#fi
 
-mv headas-un* BUILD_DIR
-chmod +x BUILD_DIR/headas-unset
+#mv headas-un* BUILD_DIR
+#chmod +x BUILD_DIR/headas-unset
 
 cd BUILD_DIR
-./configure "${configure_args[@]}" 2>&1 | tee config.log.txt || false
-#make 2>&1 | tee build.log.txt || false
-#make install 2>&1 | tee install.log.txt || false
+./configure "${configure_args[@]}" 2>&1 | tee config.txt || false
+#make 2>&1 | tee build.txt || false
+#make install 2>&1 | tee install.txt || false
 source $HEADAS/headas-init.sh
 make test || false 
 make install-test || false

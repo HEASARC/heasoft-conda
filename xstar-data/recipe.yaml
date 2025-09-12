@@ -3,7 +3,7 @@
 
 context:
   name: xstar-data
-  version: 6.35.2
+  version: 6.36
 
 package:
   name: ${{ name|lower }}
