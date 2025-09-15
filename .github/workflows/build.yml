@@ -51,6 +51,8 @@ jobs:
       - name: build packages
         if: steps.check_skip.outputs.do_build == 'true'
         run: |
+          # repot failures.
+          set -euo pipefail
           package=${{ inputs.package }}
           echo "Building package $package"
           if ! test -d $package; then
