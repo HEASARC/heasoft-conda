@@ -7,18 +7,18 @@ HEA_SUBDIR=heasoft
 
 ostype=$(uname)
 if [ "$ostype" = "Darwin" ]; then
-    # use headers from libx11 not the ones shipped with tk
-    # with this, xserver works on mac, but not tkpgplot
-    # This can be done at the user end by: mamba install xorg-libx11 --clobber
-    find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-libx11*" \
-        -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-libx11}"' {} \;
-    find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-xorgproto*" \
-        -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-xorgproto}"' {} \;
+    # # use headers from libx11 not the ones shipped with tk
+    # # with this, xserver works on mac, but not tkpgplot
+    # # This can be done at the user end by: mamba install xorg-libx11 --clobber
+    # find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-libx11*" \
+    #     -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-libx11}"' {} \;
+    # find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-xorgproto*" \
+    #     -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-xorgproto}"' {} \;
 
-    # remove extra @rpath
-    for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
-        sed -i '' 's|-Wl,-rpath,\\$HD_TOP_EXEC_PFX/lib||g' $conf
-    done
+    # # remove extra @rpath
+    # for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
+    #     sed -i '' 's|-Wl,-rpath,\\$HD_TOP_EXEC_PFX/lib||g' $conf
+    # done
 
     # fix python library in mac x86_64
     hware=$(uname -m)
@@ -36,12 +36,13 @@ configure_args=(
     --x-includes=$PREFIX/include
     --x-libraries=$PREFIX/lib
     --with-tcl=$PREFIX/lib
+    --with-tk=$PREFIX/lib
     --with-fgsl=$PREFIX
     --with-gsl=$PREFIX
     --with-fftw=$PREFIX
 )
 
-mask_files="libtk8.6.dylib" # libtcl8.6.dylib"
+mask_files="" #libtk8.6.dylib # libtcl8.6.dylib"
 if [ "$ostype" = "Darwin" ]; then
     for file in $mask_files; do
         mv $PREFIX/lib/$file $PREFIX/lib/${file}.off
