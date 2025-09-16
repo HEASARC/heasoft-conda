@@ -7,27 +7,22 @@ HEA_SUBDIR=heasoft
 
 ostype=$(uname)
 if [ "$ostype" = "Darwin" ]; then
-    # # use headers from libx11 not the ones shipped with tk
-    # # with this, xserver works on mac, but not tkpgplot
-    # # This can be done at the user end by: mamba install xorg-libx11 --clobber
-    # find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-libx11*" \
-    #     -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-libx11}"' {} \;
-    # find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-xorgproto*" \
-    #     -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-xorgproto}"' {} \;
 
-    # # remove extra @rpath
-    # for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
-    #     sed -i '' 's|-Wl,-rpath,\\$HD_TOP_EXEC_PFX/lib||g' $conf
-    # done
+    # remove extra @rpath // needed for perl pipelines; e.g. xrtpipeline
+    for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
+        sed -i '' 's|-Wl,-rpath,\\$HD_TOP_EXEC_PFX/lib||g' $conf
+    done
 
     # fix python library in mac x86_64
-    hware=$(uname -m)
-    if [ "$hware" = "x86_64" ]; then
+    if [ "$OSX_ARCH" = "x86_64" ]; then
         for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
             sed -i '' 's/^.*PYTHON_LIBRARY=.*$/PYTHON_LIBRARY=-Wl,-undefined,dynamic_lookup/' $conf
         done
+        export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
     fi
 fi
+
+bash BUILD_DIR/fix-x11-conda.sh $PREFIX
 
 
 configure_args=(
@@ -36,13 +31,12 @@ configure_args=(
     --x-includes=$PREFIX/include
     --x-libraries=$PREFIX/lib
     --with-tcl=$PREFIX/lib
-    --with-tk=$PREFIX/lib
     --with-fgsl=$PREFIX
     --with-gsl=$PREFIX
     --with-fftw=$PREFIX
 )
 
-mask_files="" #libtk8.6.dylib # libtcl8.6.dylib"
+mask_files="libtk8.6.dylib" # libtcl8.6.dylib"
 if [ "$ostype" = "Darwin" ]; then
     for file in $mask_files; do
         mv $PREFIX/lib/$file $PREFIX/lib/${file}.off
@@ -61,6 +55,9 @@ rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
 # for xspec local models
 cp ../Xspec/BUILD_DIR/hmakerc $PREFIX/$HEA_SUBDIR/bin/
 cp ../Xspec/BUILD_DIR/Makefile-std $PREFIX/$HEA_SUBDIR/bin/
+
+# Copy fix-x11-conda.sh; we are inside BUILD_DIR
+cp fix-x11-conda.sh $PREFIX/$HEA_SUBDIR/BUILD_DIR/
 
 if [ "$ostype" = "Darwin" ]; then
     for file in $mask_files; do
@@ -99,6 +96,9 @@ cp \$CONDA_PREFIX/bin/heainit.*sh \$CONDA_PREFIX/etc/conda/activate.d/
 
 mkdir -p \$CONDA_PREFIX/etc/conda/deactivate.d
 cp \$CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/headas-uninit.*sh \$CONDA_PREFIX/etc/conda/deactivate.d/
+
+# fix conda x11 for mac
+bash \$CONDA_PREFIX/$HEA_SUBDIR/BUILD_DIR/fix-x11-conda.sh \$CONDA_PREFIX
 EOF
 cat <<EOF >$PREFIX/bin/.heasoft-pre-unlink.sh
 rm \$CONDA_PREFIX/etc/conda/activate.d/heainit.*sh > /dev/null 2>&1

@@ -23,6 +23,7 @@ source:
     - if: osx
       then:
       - configures.patch
+    - fix-x11-conda.patch
 
 build:
   number: 0
