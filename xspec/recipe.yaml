@@ -2,7 +2,7 @@
 
 context:
   name: xspec
-  version: 12.15.0d
+  version: 12.15.1
   hea_version: 6.36
 
 package:
