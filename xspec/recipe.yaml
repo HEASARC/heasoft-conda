@@ -10,7 +10,7 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/heasoft-${{ version }}.tar.gz
+  url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/heasoft-${{ hea_version }}.tar.gz
   sha256: 127eb6cc371b8104fd8cb31704b788c42408a756c4345dc81758f2b9554798b6
   patches:
     - ../heasoft/tcltk_Makefile.patch
