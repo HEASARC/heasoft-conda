@@ -7,27 +7,22 @@ HEA_SUBDIR=heasoft
 
 ostype=$(uname)
 if [ "$ostype" = "Darwin" ]; then
-    # use headers from libx11 not the ones shipped with tk
-    # with this, xserver works on mac, but not tkpgplot
-    # This can be done at the user end by: mamba install xorg-libx11 --clobber
-    find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-libx11*" \
-        -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-libx11}"' {} \;
-    find $PREFIX/include/X11 -name "*.h__clobber-from-xorg-xorgproto*" \
-        -exec sh -c 'mv "$0" "${0%%__clobber-from-xorg-xorgproto}"' {} \;
 
-    # remove extra @rpath
+    # remove extra @rpath // needed for perl pipelines; e.g. xrtpipeline
     for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
-       sed -i '' 's|-Wl,-rpath,\\$HD_TOP_EXEC_PFX/lib||g' $conf
+        sed -i '' 's|-Wl,-rpath,\\$HD_TOP_EXEC_PFX/lib||g' $conf
     done
 
     # fix python library in mac x86_64
-    hware=$(uname -m)
-    if [ "$hware" = "x86_64" ]; then
+    if [ "$OSX_ARCH" = "x86_64" ]; then
         for conf in `find . -type f -name "configure" -path "*BUILD_DIR*"`; do
             sed -i '' 's/^.*PYTHON_LIBRARY=.*$/PYTHON_LIBRARY=-Wl,-undefined,dynamic_lookup/' $conf
         done
+        export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
     fi
 fi
+
+bash BUILD_DIR/fix-x11-conda.sh $PREFIX
 
 
 configure_args=(
