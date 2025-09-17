@@ -64,8 +64,9 @@ jobs:
           if [ $package == "heasoft" ]; then
             echo "doing heasoft-tests too"
             cd ../output/src_cache
+            # we use the same tar file
             root=`ls -d heasoft-* | grep -v tar`
-            ln -s ${root} ${root/heasoft/heasoft-tests}
+            rm -rf ${root}
             ln -s ${root}.tar.gz ${root/heasoft/heasoft-tests}.tar.gz
             cd ../../heasoft-tests
             rattler-build build --no-include-recipe --target-platform ${{ matrix.platform }} --output-dir ../output
