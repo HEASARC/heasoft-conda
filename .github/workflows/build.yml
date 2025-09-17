@@ -22,6 +22,7 @@ jobs:
             platform: osx-arm64
           - os: macos-latest
             platform: osx-64
+    name: Build ${{ inputs.package }} on ${{ matrix.platform }} using branch ${{ github.ref_name }}
 
     steps:
       - name: Skip noarch packages?
