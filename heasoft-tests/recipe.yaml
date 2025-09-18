@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://heasarc.gsfc.nasa.gov/FTP/software/conda/.staging/${{ name }}-${{ version }}.tar.gz
-  sha256: 1a7c8d1a48500d0de4df1b11a3601f19b57ca2953fb3a2985399d47d1d065491
+  sha256: eccd211b9f7661e063c375aee4f2b2f6c485d0e3bb561ede36967ca62681d38e
   patches:
     - ../heasoft/tcltk_Makefile.patch
     - ../heasoft/pgplot_makefiles.patch
