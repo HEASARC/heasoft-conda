@@ -52,6 +52,13 @@ tar -zcvf logs.tgz config.txt build.txt install.txt
 rm -rf config.txt build.txt install.txt
 rm -rf $PREFIX/$HEA_SUBDIR/BUILD_DIR/hd_install.o
 
+# heasoftpy fhelp docs are not created correctly; re-run
+cd ../heacore/BUILD_DIR
+export HEADAS=$PREFIX/$HEA_SUBDIR
+. $HEADAS/headas-init.sh
+hmake install-heasoftpy
+cd ../../BUILD_DIR
+
 # for xspec local models
 cp ../Xspec/BUILD_DIR/hmakerc $PREFIX/$HEA_SUBDIR/bin/
 cp ../Xspec/BUILD_DIR/Makefile-std $PREFIX/$HEA_SUBDIR/bin/
